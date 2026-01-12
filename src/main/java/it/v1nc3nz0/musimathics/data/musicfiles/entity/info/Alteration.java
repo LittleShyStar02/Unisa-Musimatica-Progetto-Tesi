@@ -40,6 +40,8 @@ public class Alteration
 	
 	private String value;
 	
+	private boolean forceNatural;
+	
 	private Alteration()
 	{
 		naturalize();
@@ -49,18 +51,23 @@ public class Alteration
 	{
 		naturalize();
 		
-		while(note.endsWith(Alteration.Symbol.SHARP.getSymbol()))
-		{
-			this.value += Alteration.Symbol.SHARP.getSymbol();
-		}
+		forceNatural = note.endsWith(Alteration.Symbol.NATURAL.getSymbol());
 		
-		while(note.endsWith(Alteration.Symbol.FLAT.getSymbol()))
+		if(!forceNatural)
 		{
-			this.value += Alteration.Symbol.FLAT.getSymbol();
+			while(note.endsWith(Alteration.Symbol.SHARP.getSymbol()))
+			{
+				this.value += Alteration.Symbol.SHARP.getSymbol();
+			}
+			
+			while(note.endsWith(Alteration.Symbol.FLAT.getSymbol()))
+			{
+				this.value += Alteration.Symbol.FLAT.getSymbol();
+			}
+			
+			if(isSharp() && isFlat())
+				throw new NoMixedSymbolsException();
 		}
-		
-		if(isSharp() && isFlat())
-			throw new NoMixedSymbolsException();
 	
 	}
 	

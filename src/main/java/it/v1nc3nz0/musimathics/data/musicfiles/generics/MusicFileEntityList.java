@@ -126,7 +126,8 @@ public class MusicFileEntityList extends ArrayList<MusicFileEntity>
 				}
 				
 				note.adjust(lastScale);
-				phrase.add(new jm.music.data.Note(note.getSemitone(),note.getDuration().get()));
+				
+				phrase.add(new jm.music.data.Note(note.getFrequence(),note.getDuration().get()));
 				recentlyNewPart = false;
 				continue;
 			}

@@ -40,11 +40,15 @@ public class Piece
 		
 		setVoicesInfo(voices);
 		setScore(compose());
+	
 	}
 	
 	public Score compose()
 	{
 		Score score = new Score();
+		score.setDenominator(metric.getDenominator());
+		score.setNumerator(metric.getNumerator());
+		score.setTempo(tempo.getValue());
 		score.setTitle(title);
 		
 		for(MusicFileEntityList voiceInfo : voicesInfo)

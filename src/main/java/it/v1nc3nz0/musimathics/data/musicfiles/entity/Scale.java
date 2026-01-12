@@ -130,9 +130,9 @@ public class Scale implements MusicFileEntity
 			if(note == null)
 			{
 				note = Notes.fromArrayIndex(i);
-				a -= note.scaleIndex();
+				int adiff = a - note.scaleIndex();
 				
-				if(a < 0)
+				if(adiff < 0)
 				{
 					alterations.put(note, Alteration.Symbol.FLAT);
 				}
@@ -156,8 +156,8 @@ public class Scale implements MusicFileEntity
 	public Alteration getAlteration(Notes note)
 	{
 		Alteration.Symbol symb = alterations.get(note);
-		if(symb == Alteration.Symbol.FLAT) Alteration.createFlat();
-		if(symb == Alteration.Symbol.SHARP) Alteration.createSharp();
+		if(symb == Alteration.Symbol.FLAT) return Alteration.createFlat();
+		if(symb == Alteration.Symbol.SHARP) return Alteration.createSharp();
 		return Alteration.createNatural();
 	}
 	

@@ -75,7 +75,7 @@ public class MusicFile extends File
 			if(line.startsWith(Note.word()))
 			{
 				
-				if(line.lastIndexOf(" ") == Note.word().length()+1)
+				if(line.lastIndexOf(" ") == Note.word().length())
 					entities.add(parser.parseNote(line));
 				else
 					entities.add(parser.parseNoteList(line));

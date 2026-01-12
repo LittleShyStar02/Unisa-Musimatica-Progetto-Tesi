@@ -29,6 +29,7 @@ public class ScaleKey
 		Scale.Notes notes = Scale.Notes.valueOf(note);
 		
 		Alteration.Symbol symbol;
+		if(alt == null) System.out.println(" alt null ");
 		if(alt.equals("#")) symbol = Alteration.Symbol.SHARP;
 		else if(alt.equals("b")) symbol = Alteration.Symbol.FLAT;
 		else symbol = Alteration.Symbol.NATURAL;

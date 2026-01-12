@@ -10,7 +10,7 @@ import lombok.Getter;
 public class Note implements MusicFileEntity
 {
 	
-	enum NoteInfo
+	public enum NoteInfo
 	{
 		A0("LA0",1),B0("SI0",3),
 		C1("DO1",4),D1("RE1",6),E1("MI1",8),F1("FA1",9),G1("SOL1",11),A1("LA1",13),B1("SI1",15),
@@ -73,44 +73,6 @@ public class Note implements MusicFileEntity
 	
 	private int semitone;
 	
-	public Note(int semitone, Alteration.Symbol scaleType, Duration duration)
-	{
-
-		if(scaleType == Alteration.Symbol.SHARP)
-			this.alteration = Alteration.createSharp();
-		
-		if(scaleType == Alteration.Symbol.NATURAL)
-			this.alteration = Alteration.createNatural();
-		
-		if(scaleType == Alteration.Symbol.FLAT)
-			this.alteration = Alteration.createFlat();
-		
-		this.duration = duration;
-		this.frequence = Note.semitoneToFrequence(semitone);
-		this.semitone = semitone;
-		validate();
-		
-		NoteInfo[] values = NoteInfo.values();
-		
-		for(int x = 0;x < values.length; x++)
-		{
-			if(values[x].getSemitone() == semitone)
-			{
-				this.noteInfo = values[x];
-				break;
-			}
-			
-			if(values[x].getSemitone() > semitone)
-			{
-				if(scaleType == Alteration.Symbol.SHARP)
-					this.noteInfo = values[x-1];
-				
-				if(scaleType == Alteration.Symbol.FLAT)
-					this.noteInfo = values[x];
-			}
-		}
-	}
-	
 	public Note(String name, Alteration alteration, Duration duration)
 	{
 		this.noteInfo = NoteInfo.fromName(name);
@@ -123,10 +85,12 @@ public class Note implements MusicFileEntity
 	
 	public void adjust(Scale scale)
 	{
-		if(alteration.isNatural()) return;
+		if(alteration.isNatural() && alteration.isForceNatural()) return;
 		Scale.Notes notes = Scale.Notes.valueOf(String.valueOf(noteInfo.name().charAt(0)));
 		Alteration alt = scale.getAlteration(notes);
 		alteration.union(alt);
+		this.semitone = this.noteInfo.getSemitone()+this.alteration.get();
+		this.frequence = Note.semitoneToFrequence(this.semitone);
 	}
 	
 	public static double semitoneToFrequence(int semitone)

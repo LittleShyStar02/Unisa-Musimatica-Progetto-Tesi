@@ -10,6 +10,9 @@ public class ApplicationConfig extends AbstractConfiguration
 {
 
 	@Getter
+	private static File musicFileFolder;
+	
+	@Getter
 	private static File musicFileSettingsFolder;
 	
 	public ApplicationConfig()
@@ -19,6 +22,7 @@ public class ApplicationConfig extends AbstractConfiguration
 	
 	public void loadData()
 	{
+		ApplicationConfig.musicFileFolder = new File(ApplicationData.MUSIC_FILES_LOCATION.getString());
 		ApplicationConfig.musicFileSettingsFolder = new File(ApplicationData.MUSIC_FILES_SETTINGS_LOCATION.getString());
 	}
 	

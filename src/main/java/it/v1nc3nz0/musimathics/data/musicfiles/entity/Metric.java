@@ -18,7 +18,7 @@ public class Metric implements MusicFileEntity
 	{
 		this.metric = metric;
 
-		String[] split = metric.split("/+");
+		String[] split = metric.split("/");
 		this.numerator = Integer.valueOf(split[0]);
 		this.denominator = Integer.valueOf(split[1]);
 		

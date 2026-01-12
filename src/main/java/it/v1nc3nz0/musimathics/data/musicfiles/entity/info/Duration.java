@@ -57,6 +57,8 @@ public class Duration
 			this.isPointed = true;
 		}
 		
+		value = Values.valueOf(dur);
+		
 		if(!validate(dur))
 			throw new InvalidDurationException(dur);
 	}
