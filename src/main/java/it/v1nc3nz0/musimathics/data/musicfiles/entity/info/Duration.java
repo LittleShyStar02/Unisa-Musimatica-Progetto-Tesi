@@ -51,6 +51,8 @@ public class Duration
 	
 	public Duration(String dur) throws InvalidDurationException
 	{
+		dur = dur.toUpperCase();
+		
 		if(dur.endsWith("."))
 		{
 			dur = dur.substring(0,dur.length()-1);
