@@ -1,0 +1,13 @@
+##################################################
+#                                                #
+#            Messages Configuration              #
+#                                                #
+##################################################
+
+error:
+  music-files:
+    isnt-valid-extension: "Stai tentando di caricare un file non music files. Assicurati che abbia l'estensione .mf"
+    entities:
+      cannot-mix-alt-symbols: "Non puoi alternare i simboli diesis con quelli bemolle"
+      invalid-duration: "La durata {duration} non è una durata valida"
+      note-outofbound: "Hai alterato troppo la nota. Va fuori range di {units} semitoni"
