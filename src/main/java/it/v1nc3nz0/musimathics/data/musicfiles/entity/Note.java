@@ -83,16 +83,6 @@ public class Note implements MusicFileEntity
 		this.frequence = Note.semitoneToFrequence(this.semitone);
 	}
 	
-	public void adjust(Scale scale)
-	{
-		if(alteration.isNatural() && alteration.isForceNatural()) return;
-		Scale.Notes notes = Scale.Notes.valueOf(String.valueOf(noteInfo.name().charAt(0)));
-		Alteration alt = scale.getAlteration(notes);
-		alteration.union(alt);
-		this.semitone = this.noteInfo.getSemitone()+this.alteration.get();
-		this.frequence = Note.semitoneToFrequence(this.semitone);
-	}
-	
 	public static double semitoneToFrequence(int semitone)
 	{
 		return Note.START_FREQUENCE * Math.pow(1.059463,semitone-1);
@@ -101,6 +91,22 @@ public class Note implements MusicFileEntity
 	public static String word()
 	{
 		return "NOTE";
+	}
+	
+	public void adjust(Scale scale)
+	{
+		if(alteration.isNatural() && alteration.isForceNatural()) return;
+		Scale.Notes notes = Scale.Notes.valueOf(String.valueOf(noteInfo.name().charAt(0)));
+		Alteration alt = scale.getAlteration(notes);
+		alteration.adjust(alt);
+		this.semitone = this.noteInfo.getSemitone()+this.alteration.get();
+		this.frequence = Note.semitoneToFrequence(this.semitone);
+	}
+	
+	@Override
+	public Note clone()
+	{
+		return new Note(getNoteInfo().name(),alteration.clone(),duration.clone());
 	}
 	
 	@Override

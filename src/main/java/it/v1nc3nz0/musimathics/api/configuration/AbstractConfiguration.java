@@ -60,5 +60,12 @@ public class AbstractConfiguration extends YamlFile implements Configuration
 			e.printStackTrace();
 		}
 	}
+	
+	public void loadConfiguration(File folder, String name)
+	{
+		this.configFolder = folder;
+		this.configName = name;
+		loadConfiguration();
+	}
 
 }

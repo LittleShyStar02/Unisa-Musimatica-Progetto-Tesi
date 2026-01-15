@@ -1,8 +1,5 @@
-package it.v1nc3nz0.musimathics.automation;
+package it.v1nc3nz0.musimathics.automation.generators;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
@@ -13,61 +10,71 @@ import it.v1nc3nz0.musimathics.automation.entity.actions.NoteActionEntity;
 import it.v1nc3nz0.musimathics.automation.entity.actions.StepChangeActionEntity;
 import it.v1nc3nz0.musimathics.data.musicfiles.entity.Bar;
 import it.v1nc3nz0.musimathics.data.musicfiles.entity.Note;
+import it.v1nc3nz0.musimathics.data.musicfiles.entity.Scale;
+import it.v1nc3nz0.musimathics.data.musicfiles.entity.Scale.Notes;
 import it.v1nc3nz0.musimathics.data.musicfiles.entity.info.Alteration;
 import it.v1nc3nz0.musimathics.data.musicfiles.entity.info.Duration;
 import it.v1nc3nz0.musimathics.data.musicfiles.exceptions.InvalidDurationException;
+import it.v1nc3nz0.musimathics.data.musicfiles.generics.MusicFileEntityList;
 
-public class MusicGenerator
+public class RandomMusicGenerator
 {
 	
 	private List<Step> steps;
+	private Note[] notes;
 	
-	public MusicGenerator() throws InvalidDurationException
+	public RandomMusicGenerator(Scale scale) throws InvalidDurationException
 	{
 		steps = new ArrayList<>();
+		notes = new Note[7];
+		loadNote(scale);
 		loadSteps();
+	}
+	
+	private void loadNote(Scale scale) throws InvalidDurationException
+	{
+		Notes noteStart = scale.getNote();
+		
+		for(int x = 0;x < 7;x++)
+		{
+			Notes note = Notes.fromArrayIndex((noteStart.arrayIndex()+x)%7);
+			notes[x] = new Note(note.name()+"4",Alteration.createNatural(),new Duration("q"));
+		}
 	}
 	
 	private void loadSteps() throws InvalidDurationException
 	{
-		Alteration natural = Alteration.createNatural();
-		Duration quarter = new Duration("q");
 		
 		Step step1 = new Step(4);
 		step1.addAction(new StepChangeActionEntity(0,StepChangeActionEntity.Mode.RANDOM));
-		step1.addAction(new NoteActionEntity(new Note("DO4",natural,quarter)));
-		step1.addAction(new NoteActionEntity(new Note("MI4",natural,quarter)));
-		step1.addAction(new NoteActionEntity(new Note("LA4",natural,quarter)));
+		step1.addAction(new NoteActionEntity(notes[0]));
+		step1.addAction(new NoteActionEntity(notes[2]));
+		step1.addAction(new NoteActionEntity(notes[5]));
 		
 		Step step2 = new Step(4);
 		step2.addAction(new StepChangeActionEntity(0,StepChangeActionEntity.Mode.UP));
 		step2.addAction(new StepChangeActionEntity(0,StepChangeActionEntity.Mode.DOWN));
-		step2.addAction(new NoteActionEntity(new Note("RE4",natural,quarter)));
-		step2.addAction(new NoteActionEntity(new Note("FA4",natural,quarter)));
+		step2.addAction(new NoteActionEntity(notes[1]));
+		step2.addAction(new NoteActionEntity(notes[3]));
 		
 		Step step3 = new Step(4);
 		step3.addAction(new StepChangeActionEntity(0,StepChangeActionEntity.Mode.UP));
 		step3.addAction(new StepChangeActionEntity(0,StepChangeActionEntity.Mode.DOWN));
-		step3.addAction(new NoteActionEntity(new Note("SOL4",natural,quarter)));
-		step3.addAction(new NoteActionEntity(new Note("SI4",natural,quarter)));
+		step3.addAction(new NoteActionEntity(notes[4]));
+		step3.addAction(new NoteActionEntity(notes[6]));
 		
 		steps.add(step1);
 		steps.add(step2);
 		steps.add(step3);
 	}
 	
-	public void generate() throws Exception
+	public MusicFileEntityList generate() throws Exception
 	{
 		
-		File file = new File("output.mf");
-		if(file.exists()) file.delete();
- 		if(!file.exists()) file.createNewFile();
- 		
-		BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+		MusicFileEntityList entities = new MusicFileEntityList();
 		
 		int step = ThreadLocalRandom.current().nextInt(1, 4);
 		int notes = 0;
-		
 		
 		while(notes < 100)
 		{
@@ -79,22 +86,18 @@ public class MusicGenerator
 			
 			if(ae instanceof NoteActionEntity entnote)
 			{
-				writer.write(entnote.getValue().toString());
-				writer.newLine();
+				entities.add(entnote.getValue().clone());
 				notes++;
 
 				if(notes != 0 && notes%4==0 && notes != 100)
 				{
-					writer.append(Bar.word());
-					writer.newLine();
+					entities.add(new Bar());
 				}
 				
 			}
 		}
 		
-		
-		writer.flush();
-		writer.close();
+		return entities;
 		
 	}
 	

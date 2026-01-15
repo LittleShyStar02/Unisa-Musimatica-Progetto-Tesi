@@ -97,6 +97,30 @@ public class Alteration
 		else return Alteration.createNatural();
 	}
 	
+	public void adjust(Alteration alt)
+	{
+		if(alt.isNatural()) return;
+		
+		if(!isNatural()) return;
+		
+		this.value = alt.getValue();
+	}
+	
+	@Override
+	public Alteration clone()
+	{
+		Alteration alteration = Alteration.createNatural();
+		alteration.union(this);
+		return alteration;
+	}
+	
+	@Override
+	public boolean equals(Object obj)
+	{
+		if(!(obj instanceof Alteration alt)) return false;
+		return get()==alt.get();
+	}
+	
 	public int get()
 	{
 		if(isFlat()) return value.length()*Alteration.Symbol.FLAT.getMultiplier();
@@ -145,13 +169,19 @@ public class Alteration
 			return;
 		}
 		
-		int diffLen = (this.value.length() < alteration.getValue().length()) 
-				? alteration.getValue().length() - this.value.length() 
-				: this.value.length() - alteration.getValue().length();
 		
-		this.value = (this.value.length() < alteration.getValue().length())
-				? alteration.getValue().substring(0,diffLen)
-				: this.value.substring(0, diffLen);
+		
+		int diffLen = get()+alteration.get();
+		this.value = "";
+		
+		if(diffLen != 0)
+		{
+			for(int x = 0;x < Math.abs(diffLen);x++)
+			{
+				if(diffLen < 0) this.value = this.value.concat(Alteration.Symbol.FLAT.getSymbol());
+				else this.value = this.value.concat(Alteration.Symbol.SHARP.getSymbol());
+			}
+		}
 	}
 	
 }

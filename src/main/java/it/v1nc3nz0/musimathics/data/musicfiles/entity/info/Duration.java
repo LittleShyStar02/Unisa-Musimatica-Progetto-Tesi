@@ -65,6 +65,12 @@ public class Duration
 			throw new InvalidDurationException(dur);
 	}
 	
+	@Override
+	public Duration clone()
+	{
+		return new Duration(value,isPointed);
+	}
+	
 	public double get()
 	{
 		return value.getValue() + ((isPointed) ? (value.getValue()/2) : 0);

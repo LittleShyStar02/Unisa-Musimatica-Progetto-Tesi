@@ -13,6 +13,8 @@ import it.v1nc3nz0.musimathics.data.musicfiles.entity.Note;
 import it.v1nc3nz0.musimathics.data.musicfiles.entity.NoteList;
 import it.v1nc3nz0.musimathics.data.musicfiles.entity.Pause;
 import it.v1nc3nz0.musimathics.data.musicfiles.entity.Scale;
+import it.v1nc3nz0.musimathics.data.musicfiles.entity.Scale.Notes;
+import it.v1nc3nz0.musimathics.data.musicfiles.entity.info.Alteration;
 import jm.music.data.CPhrase;
 import jm.music.data.Part;
 import jm.music.data.Phrase;
@@ -126,7 +128,6 @@ public class MusicFileEntityList extends ArrayList<MusicFileEntity>
 				}
 				
 				note.adjust(lastScale);
-				
 				phrase.add(new jm.music.data.Note(note.getFrequence(),note.getDuration().get()));
 				recentlyNewPart = false;
 				continue;
@@ -196,6 +197,26 @@ public class MusicFileEntityList extends ArrayList<MusicFileEntity>
 		}
 		
 		list.add(part);
+		
+		return list;
+	}
+	
+	public static MusicFileEntityList removeScale(MusicFileEntityList list, Scale scale) throws Exception
+	{
+		for(int x = 0;x < list.size();x++)
+		{
+			if(!(list.get(x) instanceof Note note)) continue;
+			
+			Notes notes = Notes.valueOf(String.valueOf(note.getNoteInfo().name().charAt(0)));
+			Alteration alt = scale.getAlteration(notes);
+			
+			if(note.getAlteration().equals(alt))
+			{
+				note.getAlteration().naturalize();
+			}
+			
+			list.set(x, note);
+		}
 		
 		return list;
 	}
