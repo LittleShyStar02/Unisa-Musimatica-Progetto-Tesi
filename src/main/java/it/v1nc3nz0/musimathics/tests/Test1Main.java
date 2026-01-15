@@ -10,7 +10,6 @@ import it.v1nc3nz0.musimathics.data.music.caches.ScaleCache;
 import it.v1nc3nz0.musimathics.data.music.caches.entity.ScaleKey;
 import it.v1nc3nz0.musimathics.data.musicfiles.MusicFile;
 import it.v1nc3nz0.musimathics.data.musicfiles.entity.Scale;
-import it.v1nc3nz0.musimathics.data.musicfiles.entity.info.Duration;
 import it.v1nc3nz0.musimathics.data.musicfiles.generics.MusicFileEntityList;
 import it.v1nc3nz0.musimathics.data.musicfiles.io.MusicFileWriter;
 import it.v1nc3nz0.musimathics.data.musicfiles.io.MusicWriter;
