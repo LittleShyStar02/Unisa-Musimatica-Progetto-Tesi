@@ -1,6 +1,7 @@
 package it.v1nc3nz0.musimathics.tests;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
 import it.v1nc3nz0.musimathics.automation.generators.RandomMusicGenerator;
 import it.v1nc3nz0.musimathics.data.configuration.ApplicationConfig;
@@ -32,21 +33,28 @@ public class Test1Main
 		
 		RandomMusicGenerator rmg = new RandomMusicGenerator(scale);
 		
-		MusicFileEntityList list = rmg.generate();
-		MusicFileEntityList list2 = rmg.generate();
+		List<MusicFileEntityList> list = new ArrayList<>();
+		for(int x = 0;x < mfs.getVoices();x++) list.add(rmg.generate());
 		
-		Piece piece = new Piece(mfs,Arrays.asList(list,list2));
+		Piece piece = new Piece(mfs,list);
 		
 		piece.compose();
 		piece.play();
 		
-		MusicFileWriter writer = new MusicFileWriter(
-				new MusicWriter(
-						new MusicFile(ApplicationConfig.getMusicFileFolder(),"generated.mf")));
-		
-		writer.save(list);
-		
-		writer.close();
+		MusicFileWriter writer;
+		MusicFile mfile;
+		for(int x = 0;x < list.size();x++)
+		{
+			mfile = new MusicFile(ApplicationConfig.getMusicFileFolder(),"v"+x+"generated.mf");
+			if(mfile.exists()) mfile.delete();
+			mfile.createNewFile();
+			writer = new MusicFileWriter(new MusicWriter(
+					mfile));
+			
+			writer.save(list.get(x));
+			
+			writer.close();
+		}
 	}
 
 }
