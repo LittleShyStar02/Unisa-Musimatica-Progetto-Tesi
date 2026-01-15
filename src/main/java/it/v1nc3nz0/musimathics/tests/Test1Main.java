@@ -45,7 +45,7 @@ public class Test1Main
 		MusicFile mfile;
 		for(int x = 0;x < list.size();x++)
 		{
-			mfile = new MusicFile(ApplicationConfig.getMusicFileFolder(),"v"+x+"generated.mf");
+			mfile = new MusicFile(ApplicationConfig.getMusicFileFolder(),"v"+x+"_generated.mf");
 			if(mfile.exists()) mfile.delete();
 			mfile.createNewFile();
 			writer = new MusicFileWriter(new MusicWriter(
