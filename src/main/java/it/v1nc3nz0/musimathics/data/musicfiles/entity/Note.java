@@ -44,6 +44,15 @@ public class Note implements MusicFileEntity
 			return NoteInfo.valueOf(name);
 		}
 		
+		public static NoteInfo fromSemitone(int semitone)
+		{
+			for(NoteInfo info : NoteInfo.values())
+			{
+				if(info.getSemitone() == semitone) return info;
+			}
+			return null;
+		}
+		
 		public int getSemitone()
 		{
 			return semitone;
@@ -124,6 +133,14 @@ public class Note implements MusicFileEntity
 	public String toString()
 	{
 		return Note.word()+" "+symbol();
+	}
+	
+	public void update(NoteInfo info)
+	{
+		this.noteInfo = info;
+		this.semitone = this.noteInfo.getSemitone()+this.alteration.get();
+		validate();
+		this.frequence = Note.semitoneToFrequence(this.semitone);
 	}
 	
 	public boolean validate()

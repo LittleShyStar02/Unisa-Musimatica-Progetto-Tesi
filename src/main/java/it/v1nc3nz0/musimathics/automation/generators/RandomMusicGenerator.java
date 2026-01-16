@@ -78,7 +78,7 @@ public class RandomMusicGenerator
 		
 		while(notes < 100)
 		{
-			int value = ThreadLocalRandom.current().nextInt(0,4);
+			int value = ThreadLocalRandom.current().nextInt(0,100)%4;
 			ActionEntity ae = steps.get(step-1).get(value);
 			
 			if(ae instanceof StepChangeActionEntity stepchange)

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import it.v1nc3nz0.musimathics.automation.generators.RandomMusicGenerator;
+import it.v1nc3nz0.musimathics.automation.genetics.OctaveChanger;
 import it.v1nc3nz0.musimathics.data.configuration.ApplicationConfig;
 import it.v1nc3nz0.musimathics.data.configuration.MusicFileSettings;
 import it.v1nc3nz0.musimathics.data.music.Piece;
@@ -24,10 +25,10 @@ public class Test1Main
 		mfs.setBPM(120);
 		mfs.setMetric("4/4");
 		mfs.setScaleAlteration("NONE");
-		mfs.setScaleNote("C");
+		mfs.setScaleNote("E");
 		mfs.setScaleType("MAJ");
 		mfs.setTitle("Default");
-		mfs.setVoices(1);
+		mfs.setVoices(2);
 		
 		Scale scale = ScaleCache.get(ScaleKey.create(mfs.getScaleNote(), mfs.getScaleAlteration(), mfs.getScaleType()));
 		
@@ -35,6 +36,7 @@ public class Test1Main
 		
 		List<MusicFileEntityList> list = new ArrayList<>();
 		for(int x = 0;x < mfs.getVoices();x++) list.add(rmg.generate());
+		list = OctaveChanger.transform(list);
 		
 		Piece piece = new Piece(mfs,list);
 		
