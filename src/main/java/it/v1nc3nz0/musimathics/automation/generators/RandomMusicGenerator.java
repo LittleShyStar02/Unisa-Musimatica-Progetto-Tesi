@@ -8,7 +8,9 @@ import it.v1nc3nz0.musimathics.api.automation.ActionEntity;
 import it.v1nc3nz0.musimathics.automation.entity.Step;
 import it.v1nc3nz0.musimathics.automation.entity.actions.NoteActionEntity;
 import it.v1nc3nz0.musimathics.automation.entity.actions.StepChangeActionEntity;
+import it.v1nc3nz0.musimathics.automation.utility.DurationUtils;
 import it.v1nc3nz0.musimathics.data.musicfiles.entity.Bar;
+import it.v1nc3nz0.musimathics.data.musicfiles.entity.Metric;
 import it.v1nc3nz0.musimathics.data.musicfiles.entity.Note;
 import it.v1nc3nz0.musimathics.data.musicfiles.entity.Scale;
 import it.v1nc3nz0.musimathics.data.musicfiles.entity.Scale.Notes;
@@ -16,17 +18,33 @@ import it.v1nc3nz0.musimathics.data.musicfiles.entity.info.Alteration;
 import it.v1nc3nz0.musimathics.data.musicfiles.entity.info.Duration;
 import it.v1nc3nz0.musimathics.data.musicfiles.exceptions.InvalidDurationException;
 import it.v1nc3nz0.musimathics.data.musicfiles.generics.MusicFileEntityList;
+import lombok.Getter;
+import lombok.Setter;
 
 public class RandomMusicGenerator
 {
 	
 	private List<Step> steps;
 	private Note[] notes;
+	private int barnotes;
 	
-	public RandomMusicGenerator(Scale scale) throws InvalidDurationException
+	@Getter
+	@Setter
+	private Metric metric;
+	
+	@Getter
+	@Setter
+	private int bars;
+	
+	public RandomMusicGenerator(Scale scale, Metric metric, int bars) throws InvalidDurationException
 	{
+		setMetric(metric);
+		setBars(bars);
+		
 		steps = new ArrayList<>();
 		notes = new Note[7];
+		barnotes = DurationUtils.getBarNotes(getMetric());
+		
 		loadNote(scale);
 		loadSteps();
 	}
@@ -35,10 +53,14 @@ public class RandomMusicGenerator
 	{
 		Notes noteStart = scale.getNote();
 		
+		Duration dur = new Duration("q");
+		if(getMetric().getDenominator() < barnotes || getMetric().getDenominator() == 8) 
+			dur = Duration.half(dur);
+		
 		for(int x = 0;x < 7;x++)
 		{
 			Notes note = Notes.fromArrayIndex((noteStart.arrayIndex()+x)%7);
-			notes[x] = new Note(note.name()+"4",Alteration.createNatural(),new Duration("q"));
+			notes[x] = new Note(note.name()+"4",Alteration.createNatural(),dur.clone());
 		}
 	}
 	
@@ -74,9 +96,10 @@ public class RandomMusicGenerator
 		MusicFileEntityList entities = new MusicFileEntityList();
 		
 		int step = ThreadLocalRandom.current().nextInt(1, 4);
+		int maxnotes = getBars()*barnotes;
 		int notes = 0;
 		
-		while(notes < 100)
+		while(notes < maxnotes)
 		{
 			int value = ThreadLocalRandom.current().nextInt(0,100)%4;
 			ActionEntity ae = steps.get(step-1).get(value);
@@ -89,7 +112,7 @@ public class RandomMusicGenerator
 				entities.add(entnote.getValue().clone());
 				notes++;
 
-				if(notes != 0 && notes%4==0 && notes != 100)
+				if(notes != 0 && notes%barnotes==0 && notes != maxnotes)
 				{
 					entities.add(new Bar());
 				}

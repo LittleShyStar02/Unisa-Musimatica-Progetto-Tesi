@@ -7,7 +7,16 @@ public class NumberGen
 
 	public static int binary()
 	{
-		return ThreadLocalRandom.current().nextInt(0,2);
+		return NumberGen.number(0, 1);
 	}
 	
+	public static int duplicate(int num)
+	{
+		return num * NumberGen.number(1, 2);
+	}
+	
+	public static int number(int min, int max)
+	{
+		return ThreadLocalRandom.current().nextInt(min,max+1);
+	}
 }

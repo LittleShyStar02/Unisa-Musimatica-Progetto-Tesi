@@ -5,6 +5,7 @@ import it.v1nc3nz0.musimathics.data.musicfiles.entity.info.Alteration;
 import it.v1nc3nz0.musimathics.data.musicfiles.entity.info.Duration;
 import it.v1nc3nz0.musimathics.data.musicfiles.exceptions.NoteOutOfBoundException;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 public class Note implements MusicFileEntity
@@ -74,6 +75,7 @@ public class Note implements MusicFileEntity
 	
 	private Alteration alteration;
 	
+	@Setter
 	private Duration duration;
 	
 	private NoteInfo noteInfo;

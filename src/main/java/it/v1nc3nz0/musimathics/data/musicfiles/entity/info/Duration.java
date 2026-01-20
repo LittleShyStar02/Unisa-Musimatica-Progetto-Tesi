@@ -81,6 +81,48 @@ public class Duration
 		return value.getName() + ((isPointed) ? "." : "");
 	}
 	
+	public static Duration duplicate(Duration dur)
+	{	
+		double value = dur.getValue().getValue()*2;
+		
+		for(Duration.Values values : Duration.Values.values())
+		{
+			if(values.getValue() == value) 
+			{
+				try
+				{
+					return new Duration(values.name());
+				} catch (InvalidDurationException e)
+				{
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		return dur;
+	}
+	
+	public static Duration half(Duration dur)
+	{	
+		double value = dur.getValue().getValue()/2;
+		
+		for(Duration.Values values : Duration.Values.values())
+		{
+			if(values.getValue() == value) 
+			{
+				try
+				{
+					return new Duration(values.name());
+				} catch (InvalidDurationException e)
+				{
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		return dur;
+	}
+	
 	public static boolean validate(String str)
 	{
 		try

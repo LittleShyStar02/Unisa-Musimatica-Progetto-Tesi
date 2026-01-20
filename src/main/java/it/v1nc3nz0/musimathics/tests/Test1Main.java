@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import it.v1nc3nz0.musimathics.automation.generators.RandomMusicGenerator;
+import it.v1nc3nz0.musimathics.automation.genetics.DurationChanger;
 import it.v1nc3nz0.musimathics.automation.genetics.OctaveChanger;
 import it.v1nc3nz0.musimathics.data.configuration.ApplicationConfig;
 import it.v1nc3nz0.musimathics.data.configuration.MusicFileSettings;
@@ -11,6 +12,7 @@ import it.v1nc3nz0.musimathics.data.music.Piece;
 import it.v1nc3nz0.musimathics.data.music.caches.ScaleCache;
 import it.v1nc3nz0.musimathics.data.music.caches.entity.ScaleKey;
 import it.v1nc3nz0.musimathics.data.musicfiles.MusicFile;
+import it.v1nc3nz0.musimathics.data.musicfiles.entity.Metric;
 import it.v1nc3nz0.musimathics.data.musicfiles.entity.Scale;
 import it.v1nc3nz0.musimathics.data.musicfiles.generics.MusicFileEntityList;
 import it.v1nc3nz0.musimathics.data.musicfiles.io.MusicFileWriter;
@@ -22,20 +24,23 @@ public class Test1Main
 	public static void main(String[] args) throws Exception
 	{
 		MusicFileSettings mfs = MusicFileSettings.createVirtualEmpty();
-		mfs.setBPM(120);
+		mfs.setBPM(80);
 		mfs.setMetric("4/4");
 		mfs.setScaleAlteration("NONE");
 		mfs.setScaleNote("E");
 		mfs.setScaleType("MAJ");
 		mfs.setTitle("Default");
-		mfs.setVoices(2);
+		mfs.setVoices(4);
 		
 		Scale scale = ScaleCache.get(ScaleKey.create(mfs.getScaleNote(), mfs.getScaleAlteration(), mfs.getScaleType()));
+		Metric metric = new Metric(mfs.getMetric());
 		
-		RandomMusicGenerator rmg = new RandomMusicGenerator(scale);
+		RandomMusicGenerator rmg = new RandomMusicGenerator(scale,metric,25);
 		
 		List<MusicFileEntityList> list = new ArrayList<>();
 		for(int x = 0;x < mfs.getVoices();x++) list.add(rmg.generate());
+		
+		list = DurationChanger.transform(list);
 		list = OctaveChanger.transform(list);
 		
 		Piece piece = new Piece(mfs,list);

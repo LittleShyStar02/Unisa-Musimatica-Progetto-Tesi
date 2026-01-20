@@ -18,9 +18,10 @@ public class ApplicationConfig extends AbstractConfiguration
 	public ApplicationConfig()
 	{
 		super(null, "applications.yml");
+		ApplicationConfig.loadData();
 	}
 	
-	public void loadData()
+	public static void loadData()
 	{
 		ApplicationConfig.musicFileFolder = new File(ApplicationData.MUSIC_FILES_LOCATION.getString());
 		ApplicationConfig.musicFileSettingsFolder = new File(ApplicationData.MUSIC_FILES_SETTINGS_LOCATION.getString());
