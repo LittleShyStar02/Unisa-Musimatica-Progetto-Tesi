@@ -3,7 +3,6 @@ package it.v1nc3nz0.musimathics;
 import java.io.IOException;
 import java.util.Arrays;
 
-import it.v1nc3nz0.musimathics.data.configuration.ApplicationConfig;
 import it.v1nc3nz0.musimathics.data.configuration.MusicFileSettings;
 import it.v1nc3nz0.musimathics.data.configuration.container.ConfigContainer;
 import it.v1nc3nz0.musimathics.data.music.Piece;
@@ -20,7 +19,7 @@ public class Main
 		ConfigContainer.init();
 		
 		MusicFileSettings mfs = new MusicFileSettings("example.yml");
-		MusicFile mf = new MusicFile(ApplicationConfig.getMusicFileFolder(),"example.mf");
+		MusicFile mf = new MusicFile(ConfigContainer.getApplicationConfig().getMusicFileFolder(),"example.mf");
 		
 		mfs.loadConfiguration();
 		

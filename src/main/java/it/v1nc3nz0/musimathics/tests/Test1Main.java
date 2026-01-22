@@ -6,8 +6,8 @@ import java.util.List;
 import it.v1nc3nz0.musimathics.automation.generators.RandomMusicGenerator;
 import it.v1nc3nz0.musimathics.automation.genetics.DurationChanger;
 import it.v1nc3nz0.musimathics.automation.genetics.OctaveChanger;
-import it.v1nc3nz0.musimathics.data.configuration.ApplicationConfig;
 import it.v1nc3nz0.musimathics.data.configuration.MusicFileSettings;
+import it.v1nc3nz0.musimathics.data.configuration.container.ConfigContainer;
 import it.v1nc3nz0.musimathics.data.music.Piece;
 import it.v1nc3nz0.musimathics.data.music.caches.ScaleCache;
 import it.v1nc3nz0.musimathics.data.music.caches.entity.ScaleKey;
@@ -23,14 +23,16 @@ public class Test1Main
 
 	public static void main(String[] args) throws Exception
 	{
+		ConfigContainer.init();
+		
 		MusicFileSettings mfs = MusicFileSettings.createVirtualEmpty();
-		mfs.setBPM(80);
+		mfs.setBPM(60);
 		mfs.setMetric("4/4");
 		mfs.setScaleAlteration("NONE");
-		mfs.setScaleNote("E");
+		mfs.setScaleNote("C");
 		mfs.setScaleType("MAJ");
 		mfs.setTitle("Default");
-		mfs.setVoices(4);
+		mfs.setVoices(2);
 		
 		Scale scale = ScaleCache.get(ScaleKey.create(mfs.getScaleNote(), mfs.getScaleAlteration(), mfs.getScaleType()));
 		Metric metric = new Metric(mfs.getMetric());
@@ -52,7 +54,7 @@ public class Test1Main
 		MusicFile mfile;
 		for(int x = 0;x < list.size();x++)
 		{
-			mfile = new MusicFile(ApplicationConfig.getMusicFileFolder(),"v"+x+"_generated.mf");
+			mfile = new MusicFile(ConfigContainer.getApplicationConfig().getMusicFileFolder(),"v"+x+"_generated.mf");
 			if(mfile.exists()) mfile.delete();
 			mfile.createNewFile();
 			writer = new MusicFileWriter(new MusicWriter(

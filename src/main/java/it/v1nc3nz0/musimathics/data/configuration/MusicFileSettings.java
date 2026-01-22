@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import it.v1nc3nz0.musimathics.api.configuration.AbstractConfiguration;
 import it.v1nc3nz0.musimathics.api.configuration.FilesUtils;
+import it.v1nc3nz0.musimathics.data.configuration.container.ConfigContainer;
 import it.v1nc3nz0.musimathics.data.configuration.enums.MusicFileSettingsData;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,12 +25,12 @@ public class MusicFileSettings extends AbstractConfiguration
 	
 	private MusicFileSettings()
 	{
-		super(ApplicationConfig.getMusicFileFolder(),"null.yml");
+		super(ConfigContainer.getApplicationConfig().getMusicFileFolder(),"null.yml");
 	}
 	
 	public MusicFileSettings(String name)
 	{
-		super(ApplicationConfig.getMusicFileSettingsFolder(), name);
+		super(ConfigContainer.getApplicationConfig().getMusicFileSettingsFolder(), name);
 		this.BPM = getInt(MusicFileSettingsData.DEFAULT_MUSIC_BPM.getPath());
 		this.metric = getString(MusicFileSettingsData.DEFAULT_MUSIC_METRIC.getPath());
 		this.scaleAlteration = getString(MusicFileSettingsData.DEFAULT_MUSIC_SCALE_ALTERATION.getPath());
@@ -64,10 +65,10 @@ public class MusicFileSettings extends AbstractConfiguration
 	
 	public void saveVirtual(String name) throws IOException
 	{
-		File file = new File(ApplicationConfig.getMusicFileFolder(),"default.yml");
-		if(!file.exists()) FilesUtils.extractFromJar(ApplicationConfig.getMusicFileSettingsFolder(), "default.yml");
-		file.renameTo(new File(ApplicationConfig.getMusicFileFolder(),name));
-		loadConfiguration(ApplicationConfig.getMusicFileFolder(),name);
+		File file = new File(ConfigContainer.getApplicationConfig().getMusicFileFolder(),"default.yml");
+		if(!file.exists()) FilesUtils.extractFromJar(ConfigContainer.getApplicationConfig().getMusicFileSettingsFolder(), "default.yml");
+		file.renameTo(new File(ConfigContainer.getApplicationConfig().getMusicFileFolder(),name));
+		loadConfiguration(ConfigContainer.getApplicationConfig().getMusicFileFolder(),name);
 		saveData();
 	}
 	

@@ -10,21 +10,20 @@ public class ApplicationConfig extends AbstractConfiguration
 {
 
 	@Getter
-	private static File musicFileFolder;
+	private File musicFileFolder;
 	
 	@Getter
-	private static File musicFileSettingsFolder;
+	private File musicFileSettingsFolder;
 	
 	public ApplicationConfig()
 	{
 		super(null, "applications.yml");
-		ApplicationConfig.loadData();
 	}
 	
-	public static void loadData()
+	public void loadData()
 	{
-		ApplicationConfig.musicFileFolder = new File(ApplicationData.MUSIC_FILES_LOCATION.getString());
-		ApplicationConfig.musicFileSettingsFolder = new File(ApplicationData.MUSIC_FILES_SETTINGS_LOCATION.getString());
+		this.musicFileFolder = new File(ApplicationData.MUSIC_FILES_LOCATION.getString());
+		this.musicFileSettingsFolder = new File(ApplicationData.MUSIC_FILES_SETTINGS_LOCATION.getString());
 	}
 	
 }
