@@ -32,7 +32,7 @@ public class Test1Main
 		mfs.setScaleNote("C");
 		mfs.setScaleType("MAJ");
 		mfs.setTitle("Default");
-		mfs.setVoices(2);
+		mfs.setVoices(1);
 		
 		Scale scale = ScaleCache.get(ScaleKey.create(mfs.getScaleNote(), mfs.getScaleAlteration(), mfs.getScaleType()));
 		Metric metric = new Metric(mfs.getMetric());
