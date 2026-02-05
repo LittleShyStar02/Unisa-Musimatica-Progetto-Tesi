@@ -1,4 +1,4 @@
-package it.v1nc3nz0.musimathics;
+package it.v1nc3nz0.musimathics.utility;
 
 import java.util.concurrent.ThreadLocalRandom;
 

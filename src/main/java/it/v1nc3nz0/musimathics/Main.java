@@ -1,30 +1,69 @@
 package it.v1nc3nz0.musimathics;
 
-import java.io.IOException;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
+import it.v1nc3nz0.musimathics.automation.generators.RandomMusicGenerator;
+import it.v1nc3nz0.musimathics.automation.genetics.DurationChanger;
+import it.v1nc3nz0.musimathics.automation.genetics.OctaveChanger;
 import it.v1nc3nz0.musimathics.data.configuration.MusicFileSettings;
 import it.v1nc3nz0.musimathics.data.configuration.container.ConfigContainer;
 import it.v1nc3nz0.musimathics.data.music.Piece;
+import it.v1nc3nz0.musimathics.data.music.caches.ScaleCache;
+import it.v1nc3nz0.musimathics.data.music.caches.entity.ScaleKey;
 import it.v1nc3nz0.musimathics.data.musicfiles.MusicFile;
-import it.v1nc3nz0.musimathics.data.musicfiles.exceptions.InvalidDurationException;
-import it.v1nc3nz0.musimathics.data.musicfiles.exceptions.InvalidMusicFileException;
-import it.v1nc3nz0.musimathics.data.musicfiles.exceptions.NoMixedSymbolsException;
+import it.v1nc3nz0.musimathics.data.musicfiles.entity.Metric;
+import it.v1nc3nz0.musimathics.data.musicfiles.entity.Scale;
+import it.v1nc3nz0.musimathics.data.musicfiles.generics.MusicFileEntityList;
+import it.v1nc3nz0.musimathics.data.musicfiles.io.MusicFileWriter;
+import it.v1nc3nz0.musimathics.data.musicfiles.io.MusicWriter;
 
 public class Main
 {
 
-	public static void main(String[] args) throws InvalidMusicFileException, NoMixedSymbolsException, InvalidDurationException, IOException
+	public static void main(String[] args) throws Exception
 	{
 		ConfigContainer.init();
 		
-		MusicFileSettings mfs = new MusicFileSettings("example.yml");
-		MusicFile mf = new MusicFile(ConfigContainer.getApplicationConfig().getMusicFileFolder(),"example.mf");
+		MusicFileSettings mfs = MusicFileSettings.createVirtualEmpty();
+		mfs.setBPM(60);
+		mfs.setMetric("4/4");
+		mfs.setScaleAlteration("NONE");
+		mfs.setScaleNote("C");
+		mfs.setScaleType("MAJ");
+		mfs.setTitle("Default");
+		mfs.setVoices(1);
 		
-		mfs.loadConfiguration();
+		Scale scale = ScaleCache.get(ScaleKey.create(mfs.getScaleNote(), mfs.getScaleAlteration(), mfs.getScaleType()));
+		Metric metric = new Metric(mfs.getMetric());
 		
-		Piece piece = new Piece(mfs, Arrays.asList(mf.getEntities()));
+		RandomMusicGenerator rmg = new RandomMusicGenerator(scale,metric,25);
+		
+		List<MusicFileEntityList> list = new ArrayList<>();
+		for(int x = 0;x < mfs.getVoices();x++) list.add(rmg.generate());
+		
+		list = DurationChanger.transform(list);
+		list = OctaveChanger.transform(list);
+		
+		Piece piece = new Piece(mfs,list);
+		
+		piece.compose();
 		piece.play();
+		
+		MusicFileWriter writer;
+		MusicFile mfile;
+		for(int x = 0;x < list.size();x++)
+		{
+			mfile = new MusicFile(ConfigContainer.getApplicationConfig().getMusicFileFolder(),"v"+x+"_generated.mf");
+			if(mfile.exists()) mfile.delete();
+			mfile.createNewFile();
+			writer = new MusicFileWriter(new MusicWriter(
+					mfile));
+			
+			writer.save(list.get(x));
+			
+			writer.close();
+		}
 	}
 
 }

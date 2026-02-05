@@ -1,7 +1,7 @@
 package it.v1nc3nz0.musimathics.automation.utility;
 
-import it.v1nc3nz0.musimathics.NumberGen;
 import it.v1nc3nz0.musimathics.data.musicfiles.entity.Metric;
+import it.v1nc3nz0.musimathics.utility.NumberGen;
 
 public class DurationUtils
 {

@@ -2,12 +2,12 @@ package it.v1nc3nz0.musimathics.automation.genetics;
 
 import java.util.List;
 
-import it.v1nc3nz0.musimathics.NumberGen;
 import it.v1nc3nz0.musimathics.api.musicfiles.MusicFileEntity;
 import it.v1nc3nz0.musimathics.data.musicfiles.entity.Bar;
 import it.v1nc3nz0.musimathics.data.musicfiles.entity.Note;
 import it.v1nc3nz0.musimathics.data.musicfiles.entity.info.Duration;
 import it.v1nc3nz0.musimathics.data.musicfiles.generics.MusicFileEntityList;
+import it.v1nc3nz0.musimathics.utility.NumberGen;
 
 public class DurationChanger
 {
