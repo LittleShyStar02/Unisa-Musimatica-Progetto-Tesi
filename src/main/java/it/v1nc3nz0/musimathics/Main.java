@@ -20,13 +20,6 @@ public class Main extends JFrame
 	private JXPanel rightPanel;
 	private JXPanel panel;
 	
-	// Left Components
-	private JXComboBox<String> scaleAlterationComboBox;
-	private JXComboBox<String> scaleTypeComboBox;
-	private JXSpinner bpmSpinner;
-	private JXSpinner voicesSpinner;
-	
-	
 	public Main()
 	{
 		frameDimension = new Dimension(600,500);
@@ -50,39 +43,37 @@ public class Main extends JFrame
 		JXPanel bpmPanel = new JXPanel(getSubPanelW(),80)
 				.setXLayout(BoxLayout.Y_AXIS);
 		bpmPanel.add(new JXLabel(200,50,"Inserisci i BPM"));
-		bpmSpinner = new JXSpinner(60,1,999,1,100,20);
-		bpmPanel.add(bpmSpinner);
+		bpmPanel.add(new JXSpinner(60,1,999,1,100,20));
 		leftPanel.add(bpmPanel);
 		
 		JXPanel metricPanel = new JXPanel(getSubPanelW(),80)
 				.setXLayout(BoxLayout.Y_AXIS);
 		metricPanel.add(new JXLabel(200,50,"Inserisci la metrica"));
+		metricPanel.add(new JXComboBox<String>(200,20,"2/4","3/4","4/4","3/8","6/8"));
 		leftPanel.add(metricPanel);
 		
 		JXPanel scaleNotePanel = new JXPanel(getSubPanelW(),80)
 				.setXLayout(BoxLayout.Y_AXIS);
 		scaleNotePanel.add(new JXLabel(200,50,"Inserisci la nota della scala"));
+		scaleNotePanel.add(new JXComboBox<String>(200,20,"C","D","E","F","G","A","B"));
 		leftPanel.add(scaleNotePanel);
 		
 		JXPanel scaleAlterationPanel = new JXPanel(getSubPanelW(),80)
 				.setXLayout(BoxLayout.Y_AXIS);
 		scaleAlterationPanel.add(new JXLabel(200,50,"Inserisci l'alterazione della scala"));
-		scaleAlterationComboBox = new JXComboBox<String>(200,20,"n","b","#");
-		scaleAlterationPanel.add(scaleAlterationComboBox);
+		scaleAlterationPanel.add(new JXComboBox<String>(200,20,"n","b","#"));
 		leftPanel.add(scaleAlterationPanel);
 		
 		JXPanel scaleTypePanel = new JXPanel(getSubPanelW(),80)
 				.setXLayout(BoxLayout.Y_AXIS);
 		scaleTypePanel.add(new JXLabel(200,50,"Inserisci la tipologia di scala"));
-		scaleTypeComboBox = new JXComboBox<String>(200,20,"MAJ","MIN");
-		scaleTypePanel.add(scaleTypeComboBox);
+		scaleTypePanel.add(new JXComboBox<String>(200,20,"MAJ","MIN"));
 		leftPanel.add(scaleTypePanel);
 		
 		JXPanel voicesPanel = new JXPanel(getSubPanelW(), 80)
 				.setXLayout(BoxLayout.Y_AXIS);
 		voicesPanel.add(new JXLabel(200,50,"Quante voci vuoi generare?"));
-		voicesSpinner = new JXSpinner(1,1,999,1,100,20);
-		voicesPanel.add(voicesSpinner);
+		voicesPanel.add(new JXSpinner(1,1,999,1,100,20));
 		leftPanel.add(voicesPanel);
 	}
 	
