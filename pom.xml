@@ -23,7 +23,7 @@
 		  <configuration>
 			  <archive>
 				  <manifest>
-					  <mainClass>it.v1nc3nz0.musimathics.Main</mainClass>
+					  <mainClass>it.v1nc3nz0.musimathics.MusicMain</mainClass>
 				  </manifest>
 			  </archive>
 			  <descriptorRefs>

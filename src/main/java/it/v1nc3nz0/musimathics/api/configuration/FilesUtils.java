@@ -9,7 +9,7 @@ import java.util.Enumeration;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
-import it.v1nc3nz0.musimathics.Main;
+import it.v1nc3nz0.musimathics.MusicMain;
 
 public class FilesUtils
 {
@@ -18,7 +18,7 @@ public class FilesUtils
 	{
 		try {
 			
-			File file = new File(Main.class.getProtectionDomain().getCodeSource().getLocation().getPath());
+			File file = new File(MusicMain.class.getProtectionDomain().getCodeSource().getLocation().getPath());
 			ZipFile zipfile = new ZipFile(file);
 			Enumeration<? extends ZipEntry> entries = zipfile.entries();
 			
