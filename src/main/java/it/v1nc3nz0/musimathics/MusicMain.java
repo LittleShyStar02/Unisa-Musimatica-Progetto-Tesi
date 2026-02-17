@@ -40,24 +40,22 @@ public class MusicMain
 	@Getter
 	private static Piece piece;
 	
-	static {
-		MusicMain.voicesList = new ArrayList<>();
-	}
-	
-	public static void generateMFS(int BPM, String Metric, String scaleAlteration, String scaleType, int voices)
+	public static void generateMFS(int BPM, String metric, String scaleNote, String scaleAlteration, String scaleType, int voices)
 	{
 		MusicMain.musicFileSettings = MusicFileSettings.createVirtualEmpty();
 		MusicMain.musicFileSettings.setBPM(BPM);
-		MusicMain.musicFileSettings.setMetric("4/4");
-		MusicMain.musicFileSettings.setScaleAlteration("NONE");
-		MusicMain.musicFileSettings.setScaleNote("C");
-		MusicMain.musicFileSettings.setScaleType("MAJ");
+		MusicMain.musicFileSettings.setMetric(metric);
+		MusicMain.musicFileSettings.setScaleAlteration(scaleAlteration);
+		MusicMain.musicFileSettings.setScaleNote(scaleNote);
+		MusicMain.musicFileSettings.setScaleType(scaleType);
 		MusicMain.musicFileSettings.setTitle("Default");
-		MusicMain.musicFileSettings.setVoices(1);
+		MusicMain.musicFileSettings.setVoices(voices);
 	}
 	
 	public static void generateVoices() throws Exception
 	{
+		MusicMain.voicesList = new ArrayList<>();
+		
 		int voices = MusicMain.getMusicFileSettings().getVoices();
 		for(int x = 0;x < voices;x++) 
 			MusicMain.getVoicesList().add(MusicMain.getRandomMusicGenerator().generate());
@@ -68,7 +66,6 @@ public class MusicMain
 		MusicMain.piece = new Piece(MusicMain.getMusicFileSettings(),MusicMain.getVoicesList());
 		
 		MusicMain.piece.compose();
-		MusicMain.piece.play();
 	}
 	
 	public static void initialize(int bars) throws InvalidDurationException
@@ -80,6 +77,11 @@ public class MusicMain
 		MusicMain.metric = new Metric(musicFileSettings.getMetric());
 		
 		MusicMain.randomMusicGenerator = new RandomMusicGenerator(MusicMain.scale,MusicMain.metric,bars);
+	}
+	
+	public static void play()
+	{
+		MusicMain.piece.play();
 	}
 	
 	public static void saveToMusicFiles() throws Exception

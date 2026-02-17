@@ -13,6 +13,13 @@ import it.v1nc3nz0.musimathics.graphics.JXLabel;
 import it.v1nc3nz0.musimathics.graphics.JXPanel;
 import it.v1nc3nz0.musimathics.graphics.JXSpinner;
 import it.v1nc3nz0.musimathics.graphics.JXSubPanel;
+import it.v1nc3nz0.musimathics.graphics.listener.CloseProgramListener;
+import it.v1nc3nz0.musimathics.graphics.listener.GenerateMusicListener;
+import it.v1nc3nz0.musimathics.graphics.listener.PlayMusicListener;
+import it.v1nc3nz0.musimathics.graphics.listener.SaveMusicFileListener;
+import it.v1nc3nz0.musimathics.graphics.listener.SaveMusicXMLListener;
+import it.v1nc3nz0.musimathics.graphics.listener.StopMusicListener;
+import lombok.Getter;
 
 @SuppressWarnings("serial")
 public class Main extends JFrame
@@ -22,6 +29,24 @@ public class Main extends JFrame
 	private JXPanel leftPanel;
 	private JXPanel rightPanel;
 	private JXPanel panel;
+	
+	@Getter
+	private JXSpinner bpmSpinner;
+	
+	@Getter
+	private JXComboBox<String> metricComboBox;
+	
+	@Getter
+	private JXComboBox<String> scaleNoteComboBox;
+	
+	@Getter
+	private JXComboBox<String> scaleAlterationComboBox;
+	
+	@Getter
+	private JXComboBox<String> scaleTypeComboBox;
+	
+	@Getter
+	private JXSpinner voicesSpinner;
 	
 	public Main()
 	{
@@ -42,32 +67,32 @@ public class Main extends JFrame
 		
 		JXSubPanel bpmPanel = new JXSubPanel().setXLayout(BoxLayout.Y_AXIS);
 		bpmPanel.add(new JXLabel("Inserisci i BPM"));
-		bpmPanel.add(new JXSpinner(60,1,999,1));
+		bpmPanel.add((bpmSpinner = new JXSpinner(60,1,999,1)));
 		leftPanel.add(bpmPanel);
 		
 		JXSubPanel metricPanel = new JXSubPanel().setXLayout(BoxLayout.Y_AXIS);
 		metricPanel.add(new JXLabel("Inserisci la metrica"));
-		metricPanel.add(new JXComboBox<String>("2/4","3/4","4/4","3/8","6/8"));
+		metricPanel.add((metricComboBox = new JXComboBox<String>("2/4","3/4","4/4","3/8","6/8")));
 		leftPanel.add(metricPanel);
 		
 		JXSubPanel scaleNotePanel = new JXSubPanel().setXLayout(BoxLayout.Y_AXIS);
 		scaleNotePanel.add(new JXLabel("Inserisci la nota della scala"));
-		scaleNotePanel.add(new JXComboBox<String>("C","D","E","F","G","A","B"));
+		scaleNotePanel.add((scaleNoteComboBox = new JXComboBox<String>("C","D","E","F","G","A","B")));
 		leftPanel.add(scaleNotePanel);
 		
 		JXSubPanel scaleAlterationPanel = new JXSubPanel().setXLayout(BoxLayout.Y_AXIS);
 		scaleAlterationPanel.add(new JXLabel("Inserisci l'alterazione della scala"));
-		scaleAlterationPanel.add(new JXComboBox<String>("n","b","#"));
+		scaleAlterationPanel.add((scaleAlterationComboBox = new JXComboBox<String>("NATURALE","BEMOLLE","DIESIS")));
 		leftPanel.add(scaleAlterationPanel);
 		
 		JXSubPanel scaleTypePanel = new JXSubPanel().setXLayout(BoxLayout.Y_AXIS);
 		scaleTypePanel.add(new JXLabel("Inserisci la tipologia di scala"));
-		scaleTypePanel.add(new JXComboBox<String>("MAJ","MIN"));
+		scaleTypePanel.add((scaleTypeComboBox = new JXComboBox<String>("MAJ","MIN")));
 		leftPanel.add(scaleTypePanel);
 		
 		JXSubPanel voicesPanel = new JXSubPanel().setXLayout(BoxLayout.Y_AXIS);
 		voicesPanel.add(new JXLabel("Quante voci vuoi generare?"));
-		voicesPanel.add(new JXSpinner(1,1,999,1));
+		voicesPanel.add((voicesSpinner = new JXSpinner(1,1,999,1)));
 		leftPanel.add(voicesPanel);
 	}
 	
@@ -75,14 +100,36 @@ public class Main extends JFrame
 	{
 		
 		int strut = 30;
+		
 		rightPanel.add(Box.createVerticalStrut(strut));
-		rightPanel.add(new JXButton("Genera"));
+		
+		rightPanel.add(new JXButton("Genera")
+				.addXMouseListener(new GenerateMusicListener(this)));
+		
 		rightPanel.add(Box.createVerticalStrut(strut));
-		rightPanel.add(new JXButton("Riproduci"));
+		
+		rightPanel.add(new JXButton("Riproduci")
+				.addXMouseListener(new PlayMusicListener()));
+		
 		rightPanel.add(Box.createVerticalStrut(strut));
-		rightPanel.add(new JXButton("Salva: Formato MusicFiles"));
+		
+		rightPanel.add(new JXButton("Ferma Musica")
+				.addXMouseListener(new StopMusicListener()));
+		
 		rightPanel.add(Box.createVerticalStrut(strut));
-		rightPanel.add(new JXButton("Salva: Formato MusicXML"));
+		
+		rightPanel.add(new JXButton("Salva: Formato MusicFiles")
+				.addXMouseListener(new SaveMusicFileListener()));
+		
+		rightPanel.add(Box.createVerticalStrut(strut));
+		
+		rightPanel.add(new JXButton("Salva: Formato MusicXML")
+				.addXMouseListener(new SaveMusicXMLListener()));
+		
+		rightPanel.add(Box.createVerticalStrut(strut));
+		
+		rightPanel.add(new JXButton("Chiudi Programma")
+				.addXMouseListener(new CloseProgramListener()));
 		
 		panel.add(rightPanel);
 	}

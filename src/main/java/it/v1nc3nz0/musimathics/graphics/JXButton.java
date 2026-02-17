@@ -3,6 +3,7 @@ package it.v1nc3nz0.musimathics.graphics;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
 
@@ -30,6 +31,12 @@ public class JXButton extends JButton
 		setMinimumSize(buttonDimension);
 		setSize(buttonDimension);
 		setText(text);
+	}
+	
+	public JXButton addXMouseListener(MouseListener listener)
+	{
+		addMouseListener(listener);
+		return this;
 	}
 
 }

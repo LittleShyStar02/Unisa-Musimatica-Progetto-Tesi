@@ -65,4 +65,9 @@ public class Piece
 		Play.midi(score);
 	}
 	
+	public void stop()
+	{
+		Play.stopMidi();
+	}
+	
 }
