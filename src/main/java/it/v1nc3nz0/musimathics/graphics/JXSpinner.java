@@ -10,15 +10,23 @@ import javax.swing.SpinnerNumberModel;
 public class JXSpinner extends JSpinner
 {
 
+	private static int WIDTH;
+	private static int HEIGTH;
+	
 	private Dimension spinnerDimension;
 	
-	public JXSpinner(int defaultValue, int min, int max, int step,int width,int height)
+	static {
+		JXSpinner.HEIGTH = 30;
+		JXSpinner.WIDTH = 250;
+	}
+	
+	public JXSpinner(int defaultValue, int min, int max, int step)
 	{
 		super(new SpinnerNumberModel(defaultValue,min,max,step));
 		
-		spinnerDimension = new Dimension(width,height);
+		spinnerDimension = new Dimension(JXSpinner.WIDTH,JXSpinner.HEIGTH);
 		
-		setAlignmentX(Component.LEFT_ALIGNMENT);
+		setAlignmentX(Component.CENTER_ALIGNMENT);
 		setMaximumSize(spinnerDimension);
 		setMinimumSize(spinnerDimension);
 		setSize(spinnerDimension);
