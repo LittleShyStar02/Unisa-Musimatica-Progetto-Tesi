@@ -33,6 +33,9 @@ public class GenerateMusicListener implements MouseListener
 		if(scaleAlteration.equals("BEMOLLE")) scaleAlteration = "b";
 		if(scaleAlteration.equals("DIESIS")) scaleAlteration = "#";
 		
+		if(scaleType.equals("MAGGIORE")) scaleType = "MAJ";
+		if(scaleType.equals("MINORE")) scaleType = "MIN";
+		
 		try
 		{
 			MusicMain.generateMFS((int) bpmObject, metric, scaleNote, scaleAlteration, scaleType, (int) voicesObject);

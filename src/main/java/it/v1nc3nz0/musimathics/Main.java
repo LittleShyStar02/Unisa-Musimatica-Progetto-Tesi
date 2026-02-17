@@ -66,32 +66,32 @@ public class Main extends JFrame
 	{
 		
 		JXSubPanel bpmPanel = new JXSubPanel().setXLayout(BoxLayout.Y_AXIS);
-		bpmPanel.add(new JXLabel("Inserisci i BPM"));
+		bpmPanel.add(new JXLabel("BPM (Battiti/m)"));
 		bpmPanel.add((bpmSpinner = new JXSpinner(60,1,999,1)));
 		leftPanel.add(bpmPanel);
 		
 		JXSubPanel metricPanel = new JXSubPanel().setXLayout(BoxLayout.Y_AXIS);
-		metricPanel.add(new JXLabel("Inserisci la metrica"));
+		metricPanel.add(new JXLabel("Metrica (n/d)"));
 		metricPanel.add((metricComboBox = new JXComboBox<String>("2/4","3/4","4/4","3/8","6/8")));
 		leftPanel.add(metricPanel);
 		
 		JXSubPanel scaleNotePanel = new JXSubPanel().setXLayout(BoxLayout.Y_AXIS);
-		scaleNotePanel.add(new JXLabel("Inserisci la nota della scala"));
+		scaleNotePanel.add(new JXLabel("Nota Scala"));
 		scaleNotePanel.add((scaleNoteComboBox = new JXComboBox<String>("C","D","E","F","G","A","B")));
 		leftPanel.add(scaleNotePanel);
 		
 		JXSubPanel scaleAlterationPanel = new JXSubPanel().setXLayout(BoxLayout.Y_AXIS);
-		scaleAlterationPanel.add(new JXLabel("Inserisci l'alterazione della scala"));
+		scaleAlterationPanel.add(new JXLabel("Alterazione Scala"));
 		scaleAlterationPanel.add((scaleAlterationComboBox = new JXComboBox<String>("NATURALE","BEMOLLE","DIESIS")));
 		leftPanel.add(scaleAlterationPanel);
 		
 		JXSubPanel scaleTypePanel = new JXSubPanel().setXLayout(BoxLayout.Y_AXIS);
-		scaleTypePanel.add(new JXLabel("Inserisci la tipologia di scala"));
-		scaleTypePanel.add((scaleTypeComboBox = new JXComboBox<String>("MAJ","MIN")));
+		scaleTypePanel.add(new JXLabel("Tipologia Scala"));
+		scaleTypePanel.add((scaleTypeComboBox = new JXComboBox<String>("MAGGIORE","MINORE")));
 		leftPanel.add(scaleTypePanel);
 		
 		JXSubPanel voicesPanel = new JXSubPanel().setXLayout(BoxLayout.Y_AXIS);
-		voicesPanel.add(new JXLabel("Quante voci vuoi generare?"));
+		voicesPanel.add(new JXLabel("Numero di voci"));
 		voicesPanel.add((voicesSpinner = new JXSpinner(1,1,999,1)));
 		leftPanel.add(voicesPanel);
 	}
