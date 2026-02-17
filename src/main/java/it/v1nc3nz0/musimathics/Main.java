@@ -56,6 +56,7 @@ public class Main extends JFrame
 		setMaximumSize(frameDimension);
 		setMinimumSize(frameDimension);
 		setLocationRelativeTo(null);
+		setResizable(false);
 		setSize(frameDimension);
 		setTitle("Compositore Automatico");
 		
@@ -98,35 +99,32 @@ public class Main extends JFrame
 	
 	private void loadRightComponents()
 	{
-		
-		int strut = 30;
-		
-		rightPanel.add(Box.createVerticalStrut(strut));
+		rightPanel.add(Box.createVerticalStrut(30));
 		
 		rightPanel.add(new JXButton("Genera")
 				.addXMouseListener(new GenerateMusicListener(this)));
 		
-		rightPanel.add(Box.createVerticalStrut(strut));
+		rightPanel.add(Box.createVerticalStrut(43));
 		
 		rightPanel.add(new JXButton("Riproduci")
 				.addXMouseListener(new PlayMusicListener()));
 		
-		rightPanel.add(Box.createVerticalStrut(strut));
+		rightPanel.add(Box.createVerticalStrut(46));
 		
 		rightPanel.add(new JXButton("Ferma Musica")
 				.addXMouseListener(new StopMusicListener()));
 		
-		rightPanel.add(Box.createVerticalStrut(strut));
+		rightPanel.add(Box.createVerticalStrut(48));
 		
 		rightPanel.add(new JXButton("Salva: Formato MusicFiles")
 				.addXMouseListener(new SaveMusicFileListener()));
 		
-		rightPanel.add(Box.createVerticalStrut(strut));
+		rightPanel.add(Box.createVerticalStrut(48));
 		
 		rightPanel.add(new JXButton("Salva: Formato MIDI")
 				.addXMouseListener(new SaveMusicXMLListener()));
 		
-		rightPanel.add(Box.createVerticalStrut(strut));
+		rightPanel.add(Box.createVerticalStrut(48));
 		
 		rightPanel.add(new JXButton("Chiudi Programma")
 				.addXMouseListener(new CloseProgramListener()));
