@@ -2,10 +2,12 @@ package it.v1nc3nz0.musimathics;
 
 import java.awt.Dimension;
 
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 
 import it.v1nc3nz0.musimathics.data.configuration.container.ConfigContainer;
+import it.v1nc3nz0.musimathics.graphics.JXButton;
 import it.v1nc3nz0.musimathics.graphics.JXComboBox;
 import it.v1nc3nz0.musimathics.graphics.JXLabel;
 import it.v1nc3nz0.musimathics.graphics.JXPanel;
@@ -71,6 +73,16 @@ public class Main extends JFrame
 	
 	private void loadRightComponents()
 	{
+		
+		int strut = 30;
+		rightPanel.add(Box.createVerticalStrut(strut));
+		rightPanel.add(new JXButton("Genera"));
+		rightPanel.add(Box.createVerticalStrut(strut));
+		rightPanel.add(new JXButton("Riproduci"));
+		rightPanel.add(Box.createVerticalStrut(strut));
+		rightPanel.add(new JXButton("Salva: Formato MusicFiles"));
+		rightPanel.add(Box.createVerticalStrut(strut));
+		rightPanel.add(new JXButton("Salva: Formato MusicXML"));
 		
 		panel.add(rightPanel);
 	}
