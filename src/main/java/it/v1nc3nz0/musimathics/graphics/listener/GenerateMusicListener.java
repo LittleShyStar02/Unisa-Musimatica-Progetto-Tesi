@@ -3,6 +3,8 @@ package it.v1nc3nz0.musimathics.graphics.listener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import javax.swing.JOptionPane;
+
 import it.v1nc3nz0.musimathics.Main;
 import it.v1nc3nz0.musimathics.MusicMain;
 import it.v1nc3nz0.musimathics.graphics.JXDialog;
@@ -36,10 +38,27 @@ public class GenerateMusicListener implements MouseListener
 		if(scaleType.equals("MAGGIORE")) scaleType = "MAJ";
 		if(scaleType.equals("MINORE")) scaleType = "MIN";
 		
+		int bars = 25;
+		
+		try 
+		{
+			String barsValue = JOptionPane.showInputDialog("Quante battue deve generare?");
+			
+			if(barsValue == null)
+				return;
+			
+			bars = Integer.parseInt(barsValue);
+		}
+		catch(NumberFormatException e)
+		{
+			JXDialog.error("Errore", "Il valore inserito non è numero.\nFai una nuova generazione inserendo un valore numerico");
+			return;
+		}
+		
 		try
 		{
 			MusicMain.generateMFS((int) bpmObject, metric, scaleNote, scaleAlteration, scaleType, (int) voicesObject);
-			MusicMain.initialize(25);
+			MusicMain.initialize(bars);
 			MusicMain.generateVoices();
 			JXDialog.info("Generazione riuscita", "Musica generata correttamente. Ora puoi salvarla o riprodurla");
 		} 

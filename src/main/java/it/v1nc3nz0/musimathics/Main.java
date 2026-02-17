@@ -123,7 +123,7 @@ public class Main extends JFrame
 		
 		rightPanel.add(Box.createVerticalStrut(strut));
 		
-		rightPanel.add(new JXButton("Salva: Formato MusicXML")
+		rightPanel.add(new JXButton("Salva: Formato MIDI")
 				.addXMouseListener(new SaveMusicXMLListener()));
 		
 		rightPanel.add(Box.createVerticalStrut(strut));

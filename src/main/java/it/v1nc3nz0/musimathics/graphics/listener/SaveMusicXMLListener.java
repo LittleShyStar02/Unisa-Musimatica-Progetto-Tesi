@@ -21,9 +21,8 @@ public class SaveMusicXMLListener implements MouseListener
 		
 		try
 		{
-			// Qui il codice per salvare su MusicXML
-			//JXDialog.info("Salvataggio effettuato", "Salvataggio avvenuto con successo");
-			JXDialog.info("MANUTENZIONE", "Pulsante non disponibile al momento");
+			MusicMain.saveToMidi();
+			JXDialog.info("Salvataggio effettuato", "Salvataggio avvenuto con successo");
 		} 
 		catch (Exception e)
 		{

@@ -1,8 +1,11 @@
 package it.v1nc3nz0.musimathics;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.sound.midi.InvalidMidiDataException;
 import it.v1nc3nz0.musimathics.automation.generators.RandomMusicGenerator;
 import it.v1nc3nz0.musimathics.automation.genetics.DurationChanger;
 import it.v1nc3nz0.musimathics.automation.genetics.OctaveChanger;
@@ -18,6 +21,7 @@ import it.v1nc3nz0.musimathics.data.musicfiles.exceptions.InvalidDurationExcepti
 import it.v1nc3nz0.musimathics.data.musicfiles.generics.MusicFileEntityList;
 import it.v1nc3nz0.musimathics.data.musicfiles.io.MusicFileWriter;
 import it.v1nc3nz0.musimathics.data.musicfiles.io.MusicWriter;
+import jm.util.Write;
 import lombok.Getter;
 
 public class MusicMain
@@ -82,6 +86,17 @@ public class MusicMain
 	public static void play()
 	{
 		MusicMain.piece.play();
+	}
+	
+	public static void saveToMidi() throws InvalidMidiDataException, IOException
+	{
+		File generatedFolder = new File("generated");
+		if(!generatedFolder.exists()) generatedFolder.mkdirs();
+		
+		File midiFile = new File(generatedFolder,"generated.mid");
+		if(midiFile.exists()) midiFile.delete();
+		
+		Write.midi(MusicMain.getPiece().getScore(),midiFile.getAbsolutePath());
 	}
 	
 	public static void saveToMusicFiles() throws Exception
