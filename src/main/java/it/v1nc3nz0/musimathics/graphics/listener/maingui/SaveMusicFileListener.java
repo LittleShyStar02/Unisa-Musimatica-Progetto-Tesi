@@ -1,10 +1,10 @@
-package it.v1nc3nz0.musimathics.graphics.listener;
+package it.v1nc3nz0.musimathics.graphics.listener.maingui;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import it.v1nc3nz0.musimathics.MusicMain;
-import it.v1nc3nz0.musimathics.graphics.JXDialog;
+import it.v1nc3nz0.musimathics.graphics.components.JXDialog;
 
 public class SaveMusicFileListener implements MouseListener
 {
@@ -13,7 +13,7 @@ public class SaveMusicFileListener implements MouseListener
 	public void mouseClicked(MouseEvent event)
 	{
 		
-		if(MusicMain.getVoicesList().isEmpty())
+		if(MusicMain.getVoicesList() == null || MusicMain.getVoicesList().isEmpty())
 		{
 			JXDialog.error("Errore", "Nessuna voce trovata. Genera prima di salvare");
 			return;

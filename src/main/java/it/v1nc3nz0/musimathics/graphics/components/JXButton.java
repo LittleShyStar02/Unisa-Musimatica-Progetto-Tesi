@@ -1,4 +1,4 @@
-package it.v1nc3nz0.musimathics.graphics;
+package it.v1nc3nz0.musimathics.graphics.components;
 
 import java.awt.Component;
 import java.awt.Dimension;

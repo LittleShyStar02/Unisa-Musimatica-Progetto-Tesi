@@ -1,20 +1,21 @@
-package it.v1nc3nz0.musimathics.graphics.listener;
+package it.v1nc3nz0.musimathics.graphics.listener.maingui;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.JOptionPane;
 
-import it.v1nc3nz0.musimathics.Main;
 import it.v1nc3nz0.musimathics.MusicMain;
-import it.v1nc3nz0.musimathics.graphics.JXDialog;
+import it.v1nc3nz0.musimathics.data.musicfiles.exceptions.InvalidDurationException;
+import it.v1nc3nz0.musimathics.graphics.components.JXDialog;
+import it.v1nc3nz0.musimathics.graphics.frames.MainGUI;
 
-public class GenerateMusicListener implements MouseListener
+public class GenerateRandomMusicListener implements MouseListener
 {
 
-	private Main main;
+	private MainGUI main;
 	
-	public GenerateMusicListener(Main main)
+	public GenerateRandomMusicListener(MainGUI main)
 	{
 		this.main = main;
 	}
@@ -30,6 +31,14 @@ public class GenerateMusicListener implements MouseListener
 		String scaleAlteration = (String) main.getScaleAlterationComboBox().getSelectedItem();
 		String scaleType = (String) main.getScaleTypeComboBox().getSelectedItem();
 		Object voicesObject = main.getVoicesSpinner().getValue();
+		
+		if(scaleNote.equals("DO")) scaleNote = "C";
+		if(scaleNote.equals("RE")) scaleNote = "D";
+		if(scaleNote.equals("MI")) scaleNote = "E";
+		if(scaleNote.equals("FA")) scaleNote = "F";
+		if(scaleNote.equals("SOL")) scaleNote = "G";
+		if(scaleNote.equals("LA")) scaleNote = "A";
+		if(scaleNote.equals("SI")) scaleNote = "B";
 		
 		if(scaleAlteration.equals("NATURALE")) scaleAlteration = "NONE";
 		if(scaleAlteration.equals("BEMOLLE")) scaleAlteration = "b";
@@ -59,10 +68,9 @@ public class GenerateMusicListener implements MouseListener
 		{
 			MusicMain.generateMFS((int) bpmObject, metric, scaleNote, scaleAlteration, scaleType, (int) voicesObject);
 			MusicMain.initialize(bars);
-			MusicMain.generateVoices();
-			JXDialog.info("Generazione riuscita", "Musica generata correttamente. Ora puoi salvarla o riprodurla");
+			main.getGenGUI().setVisible(true);
 		} 
-		catch (Exception e)
+		catch (InvalidDurationException e)
 		{
 			JXDialog.error("Errore", "Errore durante la generazione musicale: " + e.getMessage());
 		}

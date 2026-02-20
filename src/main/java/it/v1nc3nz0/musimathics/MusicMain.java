@@ -56,7 +56,7 @@ public class MusicMain
 		MusicMain.musicFileSettings.setVoices(voices);
 	}
 	
-	public static void generateVoices() throws Exception
+	public static void generateRandomVoices() throws Exception
 	{
 		MusicMain.voicesList = new ArrayList<>();
 		

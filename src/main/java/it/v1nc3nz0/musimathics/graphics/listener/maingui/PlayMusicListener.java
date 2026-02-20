@@ -1,26 +1,29 @@
-package it.v1nc3nz0.musimathics.graphics.listener;
+package it.v1nc3nz0.musimathics.graphics.listener.maingui;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.concurrent.CompletableFuture;
 
 import it.v1nc3nz0.musimathics.MusicMain;
-import it.v1nc3nz0.musimathics.graphics.JXDialog;
+import it.v1nc3nz0.musimathics.graphics.components.JXDialog;
 
-public class StopMusicListener implements MouseListener
+public class PlayMusicListener implements MouseListener
 {
 
 	@Override
 	public void mouseClicked(MouseEvent event)
 	{
 		
-		if(MusicMain.getVoicesList().isEmpty())
+		if(MusicMain.getVoicesList() == null || MusicMain.getVoicesList().isEmpty())
 		{
 			JXDialog.error("Errore", "Nessuna voce trovata. Genera prima di salvare");
 			return;
 		}
 		
-		MusicMain.getPiece().stop();
-		JXDialog.info("Riproduzione", "Riproduzione terminata");
+		CompletableFuture.runAsync(() -> {
+			MusicMain.play();
+			JXDialog.info("Riproduzione", "Riproduzione terminata");
+		});
 	}
 
 	@Override
