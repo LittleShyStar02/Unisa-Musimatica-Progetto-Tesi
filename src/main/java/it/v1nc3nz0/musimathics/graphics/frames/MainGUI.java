@@ -6,18 +6,19 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 
+import it.v1nc3nz0.musimathics.data.configuration.enums.MessagesData;
 import it.v1nc3nz0.musimathics.graphics.components.JXButton;
 import it.v1nc3nz0.musimathics.graphics.components.JXComboBox;
 import it.v1nc3nz0.musimathics.graphics.components.JXLabel;
 import it.v1nc3nz0.musimathics.graphics.components.JXPanel;
 import it.v1nc3nz0.musimathics.graphics.components.JXSpinner;
 import it.v1nc3nz0.musimathics.graphics.components.JXSubPanel;
-import it.v1nc3nz0.musimathics.graphics.listener.maingui.CloseProgramListener;
-import it.v1nc3nz0.musimathics.graphics.listener.maingui.GenerateRandomMusicListener;
-import it.v1nc3nz0.musimathics.graphics.listener.maingui.PlayMusicListener;
-import it.v1nc3nz0.musimathics.graphics.listener.maingui.SaveMusicFileListener;
-import it.v1nc3nz0.musimathics.graphics.listener.maingui.SaveMusicXMLListener;
-import it.v1nc3nz0.musimathics.graphics.listener.maingui.StopMusicListener;
+import it.v1nc3nz0.musimathics.graphics.listeners.maingui.CloseProgramListener;
+import it.v1nc3nz0.musimathics.graphics.listeners.maingui.GenerateRandomMusicListener;
+import it.v1nc3nz0.musimathics.graphics.listeners.maingui.PlayMusicListener;
+import it.v1nc3nz0.musimathics.graphics.listeners.maingui.SaveMusicFileListener;
+import it.v1nc3nz0.musimathics.graphics.listeners.maingui.SaveMidiListener;
+import it.v1nc3nz0.musimathics.graphics.listeners.maingui.StopMusicListener;
 import lombok.Getter;
 
 @SuppressWarnings("serial")
@@ -60,7 +61,7 @@ public class MainGUI extends JFrame
 		setLocationRelativeTo(null);
 		setResizable(false);
 		setSize(frameDimension);
-		setTitle("Compositore Automatico");
+		setTitle(MessagesData.COMPONENTS_MAINGUI_TITLE.getString());
 		
 		setup();
 		
@@ -71,33 +72,33 @@ public class MainGUI extends JFrame
 	{
 		
 		JXSubPanel bpmPanel = new JXSubPanel().setXLayout(BoxLayout.Y_AXIS);
-		bpmPanel.add(new JXLabel("BPM (Battiti/m)"));
+		bpmPanel.add(new JXLabel(MessagesData.COMPONENTS_MAINGUI_LABELS_BPM.getString()));
 		bpmPanel.add((bpmSpinner = new JXSpinner(60,1,999,1)));
 		leftPanel.add(bpmPanel);
 		
 		JXSubPanel metricPanel = new JXSubPanel().setXLayout(BoxLayout.Y_AXIS);
-		metricPanel.add(new JXLabel("Metrica (n/d)"));
+		metricPanel.add(new JXLabel(MessagesData.COMPONENTS_MAINGUI_LABELS_METRIC.getString()));
 		metricPanel.add((metricComboBox = new JXComboBox<String>("2/4","3/4","4/4","3/8","6/8")));
 		leftPanel.add(metricPanel);
 		
 		JXSubPanel scaleNotePanel = new JXSubPanel().setXLayout(BoxLayout.Y_AXIS);
-		scaleNotePanel.add(new JXLabel("Nota Scala"));
+		scaleNotePanel.add(new JXLabel(MessagesData.COMPONENTS_MAINGUI_LABELS_SCALENOTE.getString()));
 		scaleNotePanel.add((scaleNoteComboBox = new JXComboBox<String>("DO","RE","MI","FA","SOL","LA","SI")));
 		leftPanel.add(scaleNotePanel);
 		
 		JXSubPanel scaleAlterationPanel = new JXSubPanel().setXLayout(BoxLayout.Y_AXIS);
-		scaleAlterationPanel.add(new JXLabel("Alterazione Scala"));
+		scaleAlterationPanel.add(new JXLabel(MessagesData.COMPONENTS_MAINGUI_LABELS_SCALEALTERATION.getString()));
 		scaleAlterationPanel.add((scaleAlterationComboBox = new JXComboBox<String>("NATURALE","BEMOLLE","DIESIS")));
 		leftPanel.add(scaleAlterationPanel);
 		
 		JXSubPanel scaleTypePanel = new JXSubPanel().setXLayout(BoxLayout.Y_AXIS);
-		scaleTypePanel.add(new JXLabel("Tipologia Scala"));
+		scaleTypePanel.add(new JXLabel(MessagesData.COMPONENTS_MAINGUI_LABELS_SCALETYPE.getString()));
 		scaleTypePanel.add((scaleTypeComboBox = new JXComboBox<String>("MAGGIORE","MINORE")));
 		leftPanel.add(scaleTypePanel);
 		
 		JXSubPanel voicesPanel = new JXSubPanel().setXLayout(BoxLayout.Y_AXIS);
-		voicesPanel.add(new JXLabel("Numero di voci (max 4 se Vincolata)"));
-		voicesPanel.add((voicesSpinner = new JXSpinner(1,1,10,1)));
+		voicesPanel.add(new JXLabel(MessagesData.COMPONENTS_MAINGUI_LABELS_VOICES.getString()));
+		voicesPanel.add((voicesSpinner = new JXSpinner(1,1,4,1)));
 		leftPanel.add(voicesPanel);
 	}
 	
@@ -105,32 +106,32 @@ public class MainGUI extends JFrame
 	{
 		rightPanel.add(Box.createVerticalStrut(30));
 		
-		rightPanel.add(new JXButton("Genera")
+		rightPanel.add(new JXButton(MessagesData.COMPONENTS_MAINGUI_BUTTONS_GENERATE.getString())
 				.addXMouseListener(new GenerateRandomMusicListener(this)));
 		
 		rightPanel.add(Box.createVerticalStrut(43));
 		
-		rightPanel.add(new JXButton("Riproduci")
+		rightPanel.add(new JXButton(MessagesData.COMPONENTS_MAINGUI_BUTTONS_PLAY.getString())
 				.addXMouseListener(new PlayMusicListener()));
 		
 		rightPanel.add(Box.createVerticalStrut(46));
 		
-		rightPanel.add(new JXButton("Ferma Musica")
+		rightPanel.add(new JXButton(MessagesData.COMPONENTS_MAINGUI_BUTTONS_STOPMUSIC.getString())
 				.addXMouseListener(new StopMusicListener()));
 		
 		rightPanel.add(Box.createVerticalStrut(48));
 		
-		rightPanel.add(new JXButton("Salva: Formato MusicFiles")
+		rightPanel.add(new JXButton(MessagesData.COMPONENTS_MAINGUI_BUTTONS_SAVEFORMATMF.getString())
 				.addXMouseListener(new SaveMusicFileListener()));
 		
 		rightPanel.add(Box.createVerticalStrut(48));
 		
-		rightPanel.add(new JXButton("Salva: Formato MIDI")
-				.addXMouseListener(new SaveMusicXMLListener()));
+		rightPanel.add(new JXButton(MessagesData.COMPONENTS_MAINGUI_BUTTONS_SAVEFORMATMIDI.getString())
+				.addXMouseListener(new SaveMidiListener()));
 		
 		rightPanel.add(Box.createVerticalStrut(48));
 		
-		rightPanel.add(new JXButton("Chiudi Programma")
+		rightPanel.add(new JXButton(MessagesData.COMPONENTS_MAINGUI_BUTTONS_CLOSE.getString())
 				.addXMouseListener(new CloseProgramListener()));
 
 	}

@@ -56,7 +56,7 @@ public class MusicMain
 		MusicMain.musicFileSettings.setVoices(voices);
 	}
 	
-	public static void generateRandomVoices() throws Exception
+	public static void generateMelodicVoices() throws Exception
 	{
 		MusicMain.voicesList = new ArrayList<>();
 		
@@ -70,6 +70,11 @@ public class MusicMain
 		MusicMain.piece = new Piece(MusicMain.getMusicFileSettings(),MusicMain.getVoicesList());
 		
 		MusicMain.piece.compose();
+	}
+	
+	public static void generateArmonicVoices()
+	{
+		
 	}
 	
 	public static void initialize(int bars) throws InvalidDurationException

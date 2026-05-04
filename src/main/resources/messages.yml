@@ -4,6 +4,92 @@
 #                                                #
 ##################################################
 
+components:
+  gengui:
+    buttons:
+      abort: "Annulla"
+      fullgen: "Completa (anche armonia)"
+      partialgen: "Parziale (solo melodia)"
+    listeners:
+      basedMusicGenListener:
+        errorDialog:
+          content: "Errore durante la generazione musicale: "
+          title: "Errore"
+        successDialog:
+          content: "Musica generata correttamente. Ora puoi salvarla o riprodurla"
+          title: "Generazione Completa Riuscita"
+        warnDialog:
+          content: "Hai inserito un numero voci inferiore a 2. Abbiamo impostato le voci a 2 per te"
+          title: "Attenzione"
+      randomMusicGenListener:
+        errorDialog:
+          content: "Errore durante la generazione musicale: "
+          title: "Errore"
+        successDialog:
+          content: "Musica generata correttamente. Ora puoi salvarla o riprodurla"
+          title: "Generazione Random Riuscita"
+    title: "Tipo di generazione"
+  maingui:
+    buttons:
+      close: "Chiudi Programma"
+      generate: "Genera"
+      play: "Riproduci"
+      saveFormatMF: "Salva: Formato MusicFiles"
+      saveFormatMidi: "Salva: Formato MIDI"
+      stopMusic: "Ferma Musica"
+    labels:
+      bpm: "BPM (Battiti/m)"
+      metric: "Metrica (n/d)"
+      scaleAlteration: "Alterazione Scala"
+      scaleNote: "Nota Scala"
+      scaleType: "Tipologia Scala"
+      voices: "Numero di voci"
+    listeners:
+      generateRandomMusicListener:
+        barsInput: "Quante battute deve generare?"
+        errorDialog:
+          exceptions:
+            invalidDuration: "Errore durante la generazione musicale: "
+            numberFormat: "Il valore inserito non è numero.\nFai una nuova generazione inserendo un valore numerico"
+          title: "Errore"
+      playMusicListener:
+        errorDialog:
+          content: "Nessuna voce trovata. Genera prima di salvare"
+          title: "Errore"
+        successDialog:
+          content: "Riproduzione terminata"
+          title: "Riproduzione"
+      saveMidiListener:
+        errorDialog:
+          exceptions:
+            content: "Errore durante il salvataggio: "
+            title: "Salvataggio fallito"
+          novoice:
+            content: "Nessuna voce trovata. Genera prima di salvare"
+            title: "Errore"
+        successDialog:
+          content: "Salvataggio avvenuto con successo"
+          title: "Salvataggio effettuato"
+      saveMusicFileListener:
+        errorDialog:
+          exceptions:
+            content: "Errore durante il salvataggio: "
+            title: "Salvataggio fallito"
+          novoice:
+            content: "Nessuna voce trovata. Genera prima di salvare"
+            title: "Errore"
+        successDialog:
+          content: "Salvataggio avvenuto con successo"
+          title: "Salvataggio effettuato"
+      stopMusicListener:
+        errorDialog:
+          content: "Nessuna voce trovata. Genera prima di salvare"
+          title: "Errore"
+        successDialog:
+          content: "Riproduzione terminata"
+          title: "Riproduzione"
+    title: "Compositore Automatico"
+
 error:
   music-files:
     isnt-valid-extension: "Stai tentando di caricare un file non music files. Assicurati che abbia l'estensione .mf"

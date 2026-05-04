@@ -1,18 +1,19 @@
-package it.v1nc3nz0.musimathics.graphics.listener.gengui;
+package it.v1nc3nz0.musimathics.graphics.listeners.gengui;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import it.v1nc3nz0.musimathics.MusicMain;
+import it.v1nc3nz0.musimathics.data.configuration.enums.MessagesData;
 import it.v1nc3nz0.musimathics.graphics.components.JXDialog;
 import it.v1nc3nz0.musimathics.graphics.frames.GenGUI;
 
-public class BasedMusicGenListener implements MouseListener
+public class RandomMusicGenListener implements MouseListener
 {
 	
 	private GenGUI main;
 	
-	public BasedMusicGenListener(GenGUI main)
+	public RandomMusicGenListener(GenGUI main)
 	{
 		this.main = main;
 	}
@@ -22,19 +23,16 @@ public class BasedMusicGenListener implements MouseListener
 	{
 		try
 		{
-			if(MusicMain.getMusicFileSettings().getVoices() > 4)
-			{
-				MusicMain.getMusicFileSettings().setVoices(4);
-				JXDialog.info("Attenzione", "Hai inserito un numero voci superiore a 4. Abbiamo impostato il limite a 4 per te");
-			}
-			
 			main.setVisible(false);
-			MusicMain.generateRandomVoices(); //da sostituire
-			JXDialog.info("Generazione Vincolata Riuscita", "Musica generata correttamente. Ora puoi salvarla o riprodurla");
+			MusicMain.generateMelodicVoices();
+			JXDialog.info(MessagesData.COMPONENTS_GENGUI_LISTENERS_RANDOMMUSICGENLISTENER_SUCCESSDIALOG_TITLE.getString(),
+					MessagesData.COMPONENTS_GENGUI_LISTENERS_RANDOMMUSICGENLISTENER_SUCCESSDIALOG_CONTENT.getString());
 		}
 		catch (Exception e)
 		{
-			JXDialog.error("Errore", "Errore durante la generazione musicale: " + e.getMessage());
+			JXDialog.error(MessagesData.COMPONENTS_GENGUI_LISTENERS_RANDOMMUSICGENLISTENER_ERRORDIALOG_TITLE.getString(),
+					MessagesData.COMPONENTS_GENGUI_LISTENERS_RANDOMMUSICGENLISTENER_ERRORDIALOG_CONTENT.getString() 
+					+ e.getMessage());
 		}
 		
 	}

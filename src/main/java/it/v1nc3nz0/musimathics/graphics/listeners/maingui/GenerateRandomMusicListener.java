@@ -1,4 +1,4 @@
-package it.v1nc3nz0.musimathics.graphics.listener.maingui;
+package it.v1nc3nz0.musimathics.graphics.listeners.maingui;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -6,6 +6,7 @@ import java.awt.event.MouseListener;
 import javax.swing.JOptionPane;
 
 import it.v1nc3nz0.musimathics.MusicMain;
+import it.v1nc3nz0.musimathics.data.configuration.enums.MessagesData;
 import it.v1nc3nz0.musimathics.data.musicfiles.exceptions.InvalidDurationException;
 import it.v1nc3nz0.musimathics.graphics.components.JXDialog;
 import it.v1nc3nz0.musimathics.graphics.frames.MainGUI;
@@ -51,7 +52,7 @@ public class GenerateRandomMusicListener implements MouseListener
 		
 		try 
 		{
-			String barsValue = JOptionPane.showInputDialog("Quante battue deve generare?");
+			String barsValue = JOptionPane.showInputDialog(MessagesData.COMPONENTS_MAINGUI_LISTENERS_GENERATERANDOMMUSICLISTENER_BARSINPUT.getString());
 			
 			if(barsValue == null)
 				return;
@@ -60,7 +61,8 @@ public class GenerateRandomMusicListener implements MouseListener
 		}
 		catch(NumberFormatException e)
 		{
-			JXDialog.error("Errore", "Il valore inserito non è numero.\nFai una nuova generazione inserendo un valore numerico");
+			JXDialog.error(MessagesData.COMPONENTS_MAINGUI_LISTENERS_GENERATERANDOMMUSICLISTENER_ERRORDIALOG_TITLE.getString(),
+					MessagesData.COMPONENTS_MAINGUI_LISTENERS_GENERATERANDOMMUSICLISTENER_ERRORDIALOG_EXCEPTIONS_NUMBERFORMAT.getString());
 			return;
 		}
 		
@@ -72,7 +74,9 @@ public class GenerateRandomMusicListener implements MouseListener
 		} 
 		catch (InvalidDurationException e)
 		{
-			JXDialog.error("Errore", "Errore durante la generazione musicale: " + e.getMessage());
+			JXDialog.error(MessagesData.COMPONENTS_MAINGUI_LISTENERS_GENERATERANDOMMUSICLISTENER_ERRORDIALOG_TITLE.getString(),
+					MessagesData.COMPONENTS_MAINGUI_LISTENERS_GENERATERANDOMMUSICLISTENER_ERRORDIALOG_EXCEPTIONS_INVALIDDURATION.getString() 
+					+ e.getMessage());
 		}
 		
 	}

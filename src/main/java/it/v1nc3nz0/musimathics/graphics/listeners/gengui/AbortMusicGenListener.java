@@ -1,18 +1,16 @@
-package it.v1nc3nz0.musimathics.graphics.listener.gengui;
+package it.v1nc3nz0.musimathics.graphics.listeners.gengui;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import it.v1nc3nz0.musimathics.MusicMain;
-import it.v1nc3nz0.musimathics.graphics.components.JXDialog;
 import it.v1nc3nz0.musimathics.graphics.frames.GenGUI;
 
-public class RandomMusicGenListener implements MouseListener
+public class AbortMusicGenListener implements MouseListener
 {
-	
+
 	private GenGUI main;
 	
-	public RandomMusicGenListener(GenGUI main)
+	public AbortMusicGenListener(GenGUI main)
 	{
 		this.main = main;
 	}
@@ -20,17 +18,7 @@ public class RandomMusicGenListener implements MouseListener
 	@Override
 	public void mouseClicked(MouseEvent event)
 	{
-		try
-		{
-			main.setVisible(false);
-			MusicMain.generateRandomVoices();
-			JXDialog.info("Generazione Random Riuscita", "Musica generata correttamente. Ora puoi salvarla o riprodurla");
-		}
-		catch (Exception e)
-		{
-			JXDialog.error("Errore", "Errore durante la generazione musicale: " + e.getMessage());
-		}
-		
+		main.setVisible(false);
 	}
 
 	@Override

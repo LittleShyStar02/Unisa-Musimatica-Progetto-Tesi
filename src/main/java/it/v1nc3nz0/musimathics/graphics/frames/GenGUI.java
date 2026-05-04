@@ -6,11 +6,12 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 
+import it.v1nc3nz0.musimathics.data.configuration.enums.MessagesData;
 import it.v1nc3nz0.musimathics.graphics.components.JXButton;
 import it.v1nc3nz0.musimathics.graphics.components.JXPanel;
-import it.v1nc3nz0.musimathics.graphics.listener.gengui.AbortMusicGenListener;
-import it.v1nc3nz0.musimathics.graphics.listener.gengui.BasedMusicGenListener;
-import it.v1nc3nz0.musimathics.graphics.listener.gengui.RandomMusicGenListener;
+import it.v1nc3nz0.musimathics.graphics.listeners.gengui.AbortMusicGenListener;
+import it.v1nc3nz0.musimathics.graphics.listeners.gengui.BasedMusicGenListener;
+import it.v1nc3nz0.musimathics.graphics.listeners.gengui.RandomMusicGenListener;
 
 @SuppressWarnings("serial")
 public class GenGUI extends JFrame
@@ -29,7 +30,7 @@ public class GenGUI extends JFrame
 		setLocationRelativeTo(null);
 		setResizable(false);
 		setSize(frameDimension);
-		setTitle("Tipo di generazione");
+		setTitle(MessagesData.COMPONENTS_GENGUI_TITLE.getString());
 		
 		setup();
 	}
@@ -39,17 +40,20 @@ public class GenGUI extends JFrame
 	{
 		panel.add(Box.createVerticalStrut(15));
 		
-		JXButton randomGen = new JXButton("Random").addXMouseListener(new RandomMusicGenListener(this));
+		JXButton randomGen = new JXButton(MessagesData.COMPONENTS_GENGUI_BUTTONS_PARTIALGEN.getString())
+				.addXMouseListener(new RandomMusicGenListener(this));
 		panel.add(randomGen);
 		
 		panel.add(Box.createVerticalStrut(15));
 		
-		JXButton basedGen = new JXButton("Vincolata").addXMouseListener(new BasedMusicGenListener(this));
+		JXButton basedGen = new JXButton(MessagesData.COMPONENTS_GENGUI_BUTTONS_FULLGEN.getString())
+				.addXMouseListener(new BasedMusicGenListener(this));
 		panel.add(basedGen);
 		
 		panel.add(Box.createVerticalStrut(30));
 		
-		JXButton cancel = new JXButton("Annulla").addXMouseListener(new AbortMusicGenListener(this));
+		JXButton cancel = new JXButton(MessagesData.COMPONENTS_GENGUI_BUTTONS_ABORT.getString())
+				.addXMouseListener(new AbortMusicGenListener(this));
 		panel.add(cancel);
 	}
 	

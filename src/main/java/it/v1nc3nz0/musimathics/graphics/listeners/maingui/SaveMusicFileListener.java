@@ -1,9 +1,10 @@
-package it.v1nc3nz0.musimathics.graphics.listener.maingui;
+package it.v1nc3nz0.musimathics.graphics.listeners.maingui;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import it.v1nc3nz0.musimathics.MusicMain;
+import it.v1nc3nz0.musimathics.data.configuration.enums.MessagesData;
 import it.v1nc3nz0.musimathics.graphics.components.JXDialog;
 
 public class SaveMusicFileListener implements MouseListener
@@ -15,18 +16,22 @@ public class SaveMusicFileListener implements MouseListener
 		
 		if(MusicMain.getVoicesList() == null || MusicMain.getVoicesList().isEmpty())
 		{
-			JXDialog.error("Errore", "Nessuna voce trovata. Genera prima di salvare");
+			JXDialog.error(MessagesData.COMPONENTS_MAINGUI_LISTENERS_SAVEMUSICFILELISTENER_ERRORDIALOG_NOVOICE_TITLE.getString(),
+					MessagesData.COMPONENTS_MAINGUI_LISTENERS_SAVEMUSICFILELISTENER_ERRORDIALOG_NOVOICE_CONTENT.getString());
 			return;
 		}
 		
 		try
 		{
 			MusicMain.saveToMusicFiles();
-			JXDialog.info("Salvataggio effettuato", "Salvataggio avvenuto con successo");
+			JXDialog.info(MessagesData.COMPONENTS_MAINGUI_LISTENERS_SAVEMUSICFILELISTENER_SUCCESSDIALOG_TITLE.getString(),
+					MessagesData.COMPONENTS_MAINGUI_LISTENERS_SAVEMUSICFILELISTENER_SUCCESSDIALOG_CONTENT.getString());
 		} 
 		catch (Exception e)
 		{
-			JXDialog.error("Salvataggio fallito", "Errore durante il salvataggio: " + e.getMessage());
+			JXDialog.error(MessagesData.COMPONENTS_MAINGUI_LISTENERS_SAVEMUSICFILELISTENER_ERRORDIALOG_EXCEPTIONS_TITLE.getString(),
+					MessagesData.COMPONENTS_MAINGUI_LISTENERS_SAVEMUSICFILELISTENER_ERRORDIALOG_EXCEPTIONS_CONTENT.getString()
+					+ e.getMessage());
 		}
 		
 	}
