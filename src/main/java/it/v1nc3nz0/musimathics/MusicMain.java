@@ -62,7 +62,7 @@ public class MusicMain
 		
 		int voices = MusicMain.getMusicFileSettings().getVoices();
 		for(int x = 0;x < voices;x++) 
-			MusicMain.getVoicesList().add(MusicMain.getRandomMusicGenerator().generate());
+			MusicMain.getVoicesList().add(MusicMain.getRandomMusicGenerator().generateRandomVoice());
 		
 		MusicMain.voicesList = DurationChanger.transform(MusicMain.getVoicesList());
 		MusicMain.voicesList = OctaveChanger.transform(MusicMain.getVoicesList());
@@ -72,9 +72,20 @@ public class MusicMain
 		MusicMain.piece.compose();
 	}
 	
-	public static void generateArmonicVoices()
+	public static void generateArmonicVoices() throws Exception
 	{
+		MusicMain.voicesList = new ArrayList<>();
 		
+		MusicMain.getVoicesList().add(MusicMain.getRandomMusicGenerator().generateRandomVoice());
+		
+		MusicMain.getVoicesList().add(MusicMain.getRandomMusicGenerator().generateBasedVoice());
+		
+		MusicMain.voicesList = DurationChanger.transform(MusicMain.getVoicesList());
+		MusicMain.voicesList = OctaveChanger.transform(MusicMain.getVoicesList());
+		
+		MusicMain.piece = new Piece(MusicMain.getMusicFileSettings(),MusicMain.getVoicesList());
+		
+		MusicMain.piece.compose();
 	}
 	
 	public static void initialize(int bars) throws InvalidDurationException

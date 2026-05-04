@@ -19,7 +19,7 @@ components:
           content: "Musica generata correttamente. Ora puoi salvarla o riprodurla"
           title: "Generazione Completa Riuscita"
         warnDialog:
-          content: "Hai inserito un numero voci inferiore a 2. Abbiamo impostato le voci a 2 per te"
+          content: "Questa modalità lavora su 2 voci. Il valore inserito è ignorato"
           title: "Attenzione"
       randomMusicGenListener:
         errorDialog:

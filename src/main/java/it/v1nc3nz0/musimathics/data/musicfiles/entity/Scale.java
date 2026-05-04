@@ -3,6 +3,7 @@ package it.v1nc3nz0.musimathics.data.musicfiles.entity;
 import java.util.HashMap;
 
 import it.v1nc3nz0.musimathics.api.musicfiles.MusicFileEntity;
+import it.v1nc3nz0.musimathics.data.musicfiles.entity.Note.NoteInfo;
 import it.v1nc3nz0.musimathics.data.musicfiles.entity.info.Alteration;
 import lombok.Getter;
 import lombok.Setter;
@@ -50,6 +51,19 @@ public class Scale implements MusicFileEntity
 			{
 				if(note.scaleIndex() == value) return note;
 			}
+			return null;
+		}
+		
+		public static Notes fromNote(Note note)
+		{
+			NoteInfo info = note.getNoteInfo();
+			
+			for(Notes notes : Notes.values())
+			{
+				if(info.name().startsWith(notes.name()))
+					return notes;
+			}
+			
 			return null;
 		}
 		
