@@ -25,31 +25,38 @@ public class OctaveChanger
 	public static MusicFileEntityList transform(MusicFileEntityList entities)
 	{
 		int lastNoteIndex = -1;
-		int noteCounter = 0;
 		for(int x = 0;x < entities.size();x++)
 		{
 			if(!(entities.get(x) instanceof Note note)) continue;
-			noteCounter++;
 			
-			if(noteCounter > 2)
+			if(x > 0)
 			{	
 				Note last = (Note) entities.get(lastNoteIndex);
 				int diff = Math.abs(last.getSemitone() - note.getSemitone());
-				if(diff > 10 || NumberGen.binary()==0);
+				NoteInfo info = note.getNoteInfo();
+				
+				if(diff > 10)
 				{
-					NoteInfo info = note.getNoteInfo();
-					
 					if(last.getSemitone() > note.getSemitone()) 
 						info = NoteInfo.fromSemitone(info.getSemitone()+12);
 					else 
-						info = NoteInfo.fromSemitone(info.getSemitone()-12);
-					
-					if(info != null)
+						info = NoteInfo.fromSemitone(info.getSemitone()-12);	
+				}
+				else
+				{
+					if(NumberGen.binary()==0)
 					{
-						note.update(info);
-						entities.set(x, note);
+						if(NumberGen.binary()==0) 
+							info = NoteInfo.fromSemitone(info.getSemitone()+12);
+						else 
+							info = NoteInfo.fromSemitone(info.getSemitone()-12);
 					}
-						
+				}
+				
+				if(info != null)
+				{
+					note.update(info);
+					entities.set(x, note);
 				}
 			}
 			
