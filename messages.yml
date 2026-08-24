@@ -8,8 +8,8 @@ components:
   gengui:
     buttons:
       abort: "Annulla"
-      fullgen: "Completa (anche armonia)"
-      partialgen: "Parziale (solo melodia)"
+      fullgen: "Vincolata (anche armonia)"
+      partialgen: "Random (solo melodia)"
     listeners:
       basedMusicGenListener:
         errorDialog:
