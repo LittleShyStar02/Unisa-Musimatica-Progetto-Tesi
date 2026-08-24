@@ -33,10 +33,6 @@ public class StepChangeActionEntity extends RunActionEntity
 		
 		public abstract int nextStep(int currentStep);
 		
-		public int between(int min, int max)
-		{
-			return -1;
-		}
 	}
 	
 	@Setter
@@ -46,15 +42,9 @@ public class StepChangeActionEntity extends RunActionEntity
 	@Override
 	public void run()
 	{
-		if(mode == Mode.RANDOM)
-			step = Mode.RANDOM.between(2, 3);
-		
-		if(mode == Mode.DOWN && step > 1) step--;
-		
-		if(mode == Mode.UP)
+		if(mode != null)
 		{
-			if(step==3) step = 1;
-			else step++;
+			step = mode.nextStep(step);
 		}
 		
 	}
