@@ -2,3 +2,6 @@ execute\
 target\
 
 *.class
+
+*.mid
+*.mf

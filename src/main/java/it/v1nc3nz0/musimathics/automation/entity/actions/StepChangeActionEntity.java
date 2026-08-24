@@ -12,15 +12,26 @@ public class StepChangeActionEntity extends RunActionEntity
 
 	public enum Mode
 	{
-		DOWN,UP,
-		RANDOM
-		{
+		DOWN {
 			@Override
-			public int between(int min,int max)
-			{
-				return ThreadLocalRandom.current().nextInt(min, max+1);
-			}
-		};
+            public int nextStep(int currentStep) {
+                return currentStep > 1 ? currentStep - 1 : 1; 
+            }
+        },
+        UP {
+            @Override
+            public int nextStep(int currentStep) {
+                return (currentStep == 3) ? 1 : currentStep + 1;
+            }
+        },
+        RANDOM {
+            @Override
+            public int nextStep(int currentStep) {
+                return ThreadLocalRandom.current().nextInt(2, 4);
+            }
+        };
+		
+		public abstract int nextStep(int currentStep);
 		
 		public int between(int min, int max)
 		{
@@ -40,7 +51,11 @@ public class StepChangeActionEntity extends RunActionEntity
 		
 		if(mode == Mode.DOWN && step > 1) step--;
 		
-		if(mode == Mode.UP && step < 3) step++;
+		if(mode == Mode.UP)
+		{
+			if(step==3) step = 1;
+			else step++;
+		}
 		
 	}
 	
